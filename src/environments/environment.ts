@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   enterprise: false,
-  baseUrl: 'http://localhost:80',//baseUrl: 'https://ns3056488.ip-213-32-26.eu', http://localhost:80
+  baseUrl: 'http://localhost:80',
 };
 
 /*
