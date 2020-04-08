@@ -41,6 +41,7 @@ export class HomeComponent implements OnInit {
   conversationSelected = false;
   currentTag = "";
   users = [];
+  sessions = [];
   questions = [];
   tags = [];
   selectedQs = [];
@@ -230,6 +231,7 @@ export class HomeComponent implements OnInit {
   clean() {
     this.currentTag = "";
     this.users = [];
+    this.sessions = [];
     this.questions = [];
     this.tags = [];
     this.selectedQs = [];
@@ -338,10 +340,15 @@ export class HomeComponent implements OnInit {
         tag: rc.tag.toLowerCase()
       }
 
-      //users' list with unfinished
-      var usr = rc.session;
+      //sessions' list with unfinished
+      var usr = rc.user;
       if (!this.users.includes(usr)) {
         this.users.push(usr);
+      }
+
+      var ssion = rc.session;
+      if (!this.sessions.includes(ssion)) {
+        this.sessions.push(ssion);
         if (rc.totalDuration == "unfinished") {
           unfinishedTotal++;
         }
@@ -427,7 +434,7 @@ export class HomeComponent implements OnInit {
       this.dataUserView.push(tmpData);
     }
 
-    this.dataGeneric = { total: this.users.length, unfinished: unfinishedTotal };
+    this.dataGeneric = { participants: this.users.length, sessions: this.sessions.length, unfinished: unfinishedTotal };
     this.loadDuration();
   }
 

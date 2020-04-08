@@ -7,16 +7,18 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class GenericDataChartComponent implements OnInit {
 
-  @Input() data: {total: number, unfinished: number};
+  @Input() data: {participants: number, sessions: number, unfinished: number};
 
   totalParticipants = 0;
   totalFinish = 0;
+  totalSessions = 0;
 
   constructor() { }
 
   ngOnInit() {
 
-    this.totalParticipants = this.data.total-1;
+    this.totalParticipants = this.data.participants-1;
+    this.totalSessions = this.data.sessions-1;
     this.totalFinish = this.totalParticipants - this.data.unfinished;
   }
 
