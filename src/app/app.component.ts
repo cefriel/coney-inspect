@@ -9,4 +9,5 @@ import { ActivatedRoute, Router, Params } from '@angular/router';
 export class AppComponent {
   title = 'coney-inspect';
 
+  constructor() {}
 }

@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment';
 })
 export class AuthGaurdService implements CanActivate {
 
-  constructor(private router: Router,
+  constructor(private router: Router, 
     private authService: AuthenticationService) { 
     }
 
@@ -16,7 +16,8 @@ export class AuthGaurdService implements CanActivate {
     if (this.authService.isUserLoggedIn() || !environment.enterprise)
       return true;
 
-    this.router.navigate(['login']);
+
+    this.router.navigate(['login'], { queryParams: route.queryParams });
     return false;
 
   }

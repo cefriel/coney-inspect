@@ -22,7 +22,12 @@ export class AuthenticationService {
         private route: ActivatedRoute, 
         private http: HttpClient) {}
 
+       
+    
+
     authenticate(username, password) {
+        
+
         const headers = new HttpHeaders({ Authorization: username + ':' + password });
         return this.http.post<any>(this.url + '/authenticate', {}, { headers }).pipe(
             map(

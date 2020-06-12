@@ -14,13 +14,20 @@ export class LoginComponent implements OnInit {
   password = ''
   invalidLogin = false
   isLogging = false;
+
+  id="";
   
-  constructor(private router: Router,
+  constructor(private router: Router, private route: ActivatedRoute,
     private loginservice: AuthenticationService) { }
 
   ngOnInit() {
+    this.route.queryParams.subscribe(params => {
+      console.log(params);
+      this.id=params["data"];
+      sessionStorage.setItem("conv", this.id);
+    });
     if(!environment.enterprise){
-      this.router.navigate(['']);
+      this.router.navigate([''], { queryParams: this.route.queryParams });
     }
   }
 

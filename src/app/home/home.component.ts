@@ -14,6 +14,7 @@ import { environment } from 'src/environments/environment';
 })
 export class HomeComponent implements OnInit {
 
+  //data to be passed to the components
   dataValueDistrBar: any;
   dataAnsDistrPie: any;
   dataDurationBar: any;
@@ -23,6 +24,7 @@ export class HomeComponent implements OnInit {
   dataGeneric: any;
   dataUserView: any;
 
+  //UI vars
   displayGenericChart = false;
   displayMappedDataChart = false;
   displayDataOpenQuestions = false;
@@ -35,7 +37,6 @@ export class HomeComponent implements OnInit {
   enterprise = false;
 
   conversations: any;
-
   currentConversationTitle = "";
   currentConversationId = "";
   conversationSelected = false;
@@ -47,7 +48,7 @@ export class HomeComponent implements OnInit {
   selectedQs = [];
 
 
-  //searchBox
+  //searchBox variables
   searchProjects = ["all"];
   initialConversations = [];
   noTitleConversations = [];
@@ -56,6 +57,7 @@ export class HomeComponent implements OnInit {
 
   getConvId = "";
 
+  //export params
   path = "./assets/csv/";
   records: any;
   param = "";
@@ -64,9 +66,6 @@ export class HomeComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router) { }
 
-
-  //Initialization
-
   ngOnInit() {
     this.dataValueDistrBar = [];
     this.dataAnsDistrPie = [];
@@ -74,13 +73,14 @@ export class HomeComponent implements OnInit {
 
     this.enterprise = environment.enterprise;
 
-    //this controls back and forward buttons trhou queryParams changes
+    //this controls back and forward buttons through queryParams changes and checks for convId get param
     this.route.queryParams.subscribe(params => {
       this.param = params['data'];
       if (this.param == null || this.param == undefined || this.param == "") {
-        this.changeSurvey();
+        this.getConversations();
       } else {
         if (this.param.substr(0, 2) == "id") {
+          console.log("cound" + this.param.substr(0, 2));
           sessionStorage.setItem("conv", this.param);
         }
         this.getConversations();
@@ -89,13 +89,14 @@ export class HomeComponent implements OnInit {
   }
 
   getConversations() {
-    let endpoint = '/create/searchConversation?status=published'; // /create
+    let endpoint = '/create/searchConversation?status=published';
     this.conversations = [];
     this.backend.getRequest(endpoint).subscribe(json => {
 
       var tmpConv = JSON.parse(json);
-      if (sessionStorage.getItem("conv") != undefined && sessionStorage.getItem("conv") != null && sessionStorage.getItem("conv") != "null") {
 
+      //se ho un id in sessione e lo ritrovo tra quelli scaricati, apro la conv
+      if (sessionStorage.getItem("conv") != undefined && sessionStorage.getItem("conv") != null && sessionStorage.getItem("conv") != "null") {
         for (var i = 0; i < tmpConv.length; i++) {
           if (tmpConv[i].conversationId == sessionStorage.getItem("conv")) {
             this.conversationChosen(tmpConv[i].conversationId, tmpConv[i].conversationTitle, undefined);
@@ -103,7 +104,7 @@ export class HomeComponent implements OnInit {
           }
         }
       } else {
-
+      
         for (var z = 0; z < tmpConv.length; z++) {
           if (tmpConv[z].status != "saved") {
             this.conversations.push(tmpConv[z]);
@@ -117,8 +118,8 @@ export class HomeComponent implements OnInit {
           this.noConvFound = false;
           this.getProjects();
         }
-
       }
+
     });
   }
 
@@ -129,6 +130,7 @@ export class HomeComponent implements OnInit {
         this.searchProjects.push(pr);
       }
     }
+    this.selectionChanged();
   }
 
   //Search screen functions
@@ -154,8 +156,7 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  //Open the conversation and read the CSV
-
+  //Opens the conversation and read the CSV
   conversationChosen(conversationId, conversationTitle, type) {
     this.currentConversationId = conversationId;
     this.currentConversationTitle = conversationTitle;
@@ -179,6 +180,7 @@ export class HomeComponent implements OnInit {
 
   }
 
+  //data read initialization
   initDataRead(file) {
     let csvRecordsArray = (<string>file).split(/\r\n|\n/);
     let headersRow = this.getHeaderArray(csvRecordsArray);
@@ -199,8 +201,7 @@ export class HomeComponent implements OnInit {
   getDataRecordsArrayFromCSVFile(csvRecordsArray: any, header: any) {
     let csvArr = [];
     for (let i = 1; i < csvRecordsArray.length; i++) {
-      //let currentRecord = (<string>csvRecordsArray[i]).split(',');
-
+     
       var currentRecord = (<string>csvRecordsArray[i]).split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
       if (currentRecord.length == header.length) {
         let csvRecord: CSVRecord = new CSVRecord();
@@ -226,8 +227,7 @@ export class HomeComponent implements OnInit {
     return csvArr;
   }
 
-  //Reset or change view and reload data
-
+  //Resets all the data 
   clean() {
     this.currentTag = "";
     this.users = [];
@@ -254,6 +254,7 @@ export class HomeComponent implements OnInit {
     this.router.navigate([''], { queryParams: { data: undefined } });
   }
 
+  //switches between the "per user" and "generic" view
   changeView() {
     if (this.userView) {
       this.userView = false;
@@ -262,6 +263,7 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  //navigate back to the search screen
   changeSurvey() {
     this.clean();
     this.getConversations();
@@ -275,8 +277,8 @@ export class HomeComponent implements OnInit {
     this.conversationChosen(tmpId, tmpTitle, undefined);
   }
 
-  //Loading data to charts
-
+  //TODO: REDO
+  //Loading duration data to charts
   loadDuration() {
     var dur_map = new Map();
     var duration_p = new Array();
@@ -314,7 +316,8 @@ export class HomeComponent implements OnInit {
     this.displayDataOpenQuestions = true;
     this.displayDataNoValueQuestions = true;
   }
-
+  //TODO: REDO
+  //loading all data to charts
   loadDataToCharts() {
     this.dataGeneric = 0;
     var unfinishedTotal = 0;
@@ -438,8 +441,8 @@ export class HomeComponent implements OnInit {
     this.loadDuration();
   }
 
-  //Filter visualized data
 
+  //Filter visualized data (events)
   tagChosen(tag) {
     this.currentTag = tag;
     this.selectedQs = [];
@@ -449,6 +452,7 @@ export class HomeComponent implements OnInit {
     this.selectedQs = questions;
   }
 
+  //UI areas visualization control
   manageChartChoice(type) {
     var div = document.getElementById('hidingDiv');
     if (div.style.height == "0px" && type == "button") {
@@ -463,6 +467,7 @@ export class HomeComponent implements OnInit {
 
   //Utils
 
+  //pop-up message method
   operationFeedbackMessage(type: string, msg: string) {
     switch (type) {
       case 'success':
