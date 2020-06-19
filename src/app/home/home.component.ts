@@ -35,7 +35,7 @@ export class HomeComponent implements OnInit {
   loadingInProgress = false;
   userView = false;
   enterprise = false;
-
+  
   conversations: any;
   currentConversationTitle = "";
   currentConversationId = "";
