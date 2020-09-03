@@ -6,6 +6,7 @@
         <div class="col p-1" *ngFor="let dato of dataToShow" style="justify-content: center;
         flex-direction: column;
         display: flex;">
+        
             <h4 style="text-align: center; color: rgb(119, 119, 119); font-weight: bold" *ngIf="dato.mean == 0.00; else availableData" class="m-0">N/A</h4>
             <ng-template #availableData>
                 <h4 style="text-align: center; color: #eb4841; font-weight: bold" *ngIf="dato.mean < (dato.min + (dato.step))" class="m-0">{{dato.mean}}</h4>

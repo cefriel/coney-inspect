@@ -28,14 +28,17 @@ export class MeanPerTagComponent implements OnInit {
         tmpMean = (this.data[i].total/this.data[i].amount).toFixed(2);
       else
         tmpMean = 0.00;
-      var tmpObj = {
-        tag: this.data[i].tag, 
-        mean: tmpMean, 
-        min: this.data[i].min, 
-        max: this.data[i].max, 
-        step: (this.data[i].max-this.data[i].min)/5
-      };
-      this.dataToShow.push(tmpObj);
+        var tmpObj = {
+          tag: this.data[i].tag, 
+          mean: tmpMean, 
+          min: this.data[i].min, 
+          max: this.data[i].max, 
+          step: (this.data[i].max-this.data[i].min)/5
+        };
+        if(tmpObj.tag != "untagged"){
+          this.dataToShow.push(tmpObj);
+        }
+      
     }
   }
 

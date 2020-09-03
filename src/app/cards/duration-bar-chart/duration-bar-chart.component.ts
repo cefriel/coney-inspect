@@ -21,20 +21,21 @@ export class DurationBarChartComponent implements OnInit {
   constructor() {
   }
 
-  onResize() {
+  ngOnInit() {}
+
+  ngOnChanges() {
+    this.loadData()
+  }
+
+  onResize(){
     this.createChart();
   }
 
-  onChanges() {
-    this.createChart();
-  }
-
-  ngOnInit() {
-
+  loadData() {
     this.barChartData = [];
-    var dataToFilter = this.data.array;
+    var dataToFilter = this.data.array.slice();
     var atom = (this.data.max + (this.data.max * 0.1)) / 15;
-   
+
     for (var i = 1; i <= 15; i++) {
       var step = {
         value: Math.floor(atom * i),
@@ -56,10 +57,10 @@ export class DurationBarChartComponent implements OnInit {
   }
 
   private createChart(): void {
-   
+
     let data: [{ value: number, amount: number, color: string }];
     data = this.barChartData;
-    
+
     var prev = document.getElementById('durationBarChart');
     if (prev != undefined && prev != null) {
       prev.remove();

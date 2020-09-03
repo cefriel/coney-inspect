@@ -14,6 +14,8 @@ import { environment } from 'src/environments/environment';
 })
 export class HomeComponent implements OnInit {
 
+  isLoadingConversation = false;
+
   //data to be passed to the components
   dataValueDistrBar: any;
   dataAnsDistrPie: any;
@@ -67,6 +69,7 @@ export class HomeComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
+    
     this.dataValueDistrBar = [];
     this.dataAnsDistrPie = [];
     this.dataUserView = [];
@@ -79,8 +82,8 @@ export class HomeComponent implements OnInit {
       if (this.param == null || this.param == undefined || this.param == "") {
         this.getConversations();
       } else {
+        this.isLoadingConversation = true;
         if (this.param.substr(0, 2) == "id") {
-          console.log("cound" + this.param.substr(0, 2));
           sessionStorage.setItem("conv", this.param);
         }
         this.getConversations();
@@ -119,7 +122,9 @@ export class HomeComponent implements OnInit {
           this.getProjects();
         }
       }
-
+      this.isLoadingConversation = false;
+    }, err => {
+      this.isLoadingConversation = false;
     });
   }
 
@@ -158,6 +163,7 @@ export class HomeComponent implements OnInit {
 
   //Opens the conversation and read the CSV
   conversationChosen(conversationId, conversationTitle, type) {
+
     this.currentConversationId = conversationId;
     this.currentConversationTitle = conversationTitle;
     this.loadingInProgress = true;
@@ -174,6 +180,7 @@ export class HomeComponent implements OnInit {
       }, err => {
         this.operationFeedbackMessage("error", "No results found");
         this.loadingInProgress = false;
+        this.isLoadingConversation = false;
         this.changeSurvey();
       }
     );
@@ -250,8 +257,13 @@ export class HomeComponent implements OnInit {
 
     this.currentConversationTitle = "";
     this.conversationSelected = false;
-    sessionStorage.setItem("conv", null);
-    this.router.navigate([''], { queryParams: { data: undefined } });
+
+    
+  }
+
+  cleanNavigation(){
+    sessionStorage.removeItem("conv");
+    this.router.navigate(['']);
   }
 
   //switches between the "per user" and "generic" view
@@ -266,10 +278,11 @@ export class HomeComponent implements OnInit {
   //navigate back to the search screen
   changeSurvey() {
     this.clean();
-    this.getConversations();
+    this.cleanNavigation();
   }
 
   reloadData() {
+    this.isLoadingConversation = true;
     this.loadingInProgress = true;
     var tmpTitle = this.currentConversationTitle;
     var tmpId = this.currentConversationId;
@@ -286,7 +299,7 @@ export class HomeComponent implements OnInit {
     var arr = [];
     var max_d = 0;
     for (var j = 0; j < this.records.length; j++) {
-      if (this.records[j].user != "" && this.records[j].totalDuration != "unfinished") {
+      if (this.records[j].user != "" && this.records[j].totalDuration != "unfinished" && !this.records[j].totalDuration.startsWith('-')) {
         var x = this.records[j].totalDuration;
         duration = new Array();
         duration = x.split(":");
@@ -309,16 +322,18 @@ export class HomeComponent implements OnInit {
         arr.push(duration_p[i]);
     }
     for (var k = 0; k < duration_p.length; k++) if (arr[k] > max_d) max_d = arr[k];
-
+    console.log(arr);
     this.dataDurationBar = { max: max_d, array: arr };
     this.displayGenericChart = true;
     this.displayMappedDataChart = true;
     this.displayDataOpenQuestions = true;
     this.displayDataNoValueQuestions = true;
+    this.isLoadingConversation = false;
   }
   //TODO: REDO
   //loading all data to charts
   loadDataToCharts() {
+    
     this.dataGeneric = 0;
     var unfinishedTotal = 0;
     var tmpTags = [];
@@ -554,6 +569,7 @@ export class HomeComponent implements OnInit {
   openDeliver() {
     if (!environment.enterprise) {
       this.clean();
+      this.cleanNavigation();
       return;
     }
     var url = environment.baseUrl + "/coney/home";
