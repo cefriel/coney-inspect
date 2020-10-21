@@ -28,17 +28,16 @@ export class UserViewComponent {
     this.users = [];
 
     for (var i = 0; i < this.data.length; i++) {
-      
       var element = this.data[i];
       if(element.session=="" || element.user==""){ continue; }
 
       var index = this.users.findIndex(usr => usr.session === element.session);
       //if not present, add user-session pair
       if(index == -1){
-        console.log("adding user");
         var usr = {
           user: element.user,
-          session: element.session
+          session: element.session,
+          date: element.date
         }
         this.users.push(usr);
       }
@@ -72,7 +71,8 @@ export class UserViewComponent {
           questionId: element.questionId,
           tag: element.tag,
           label: answer,
-          value: element.value
+          value: element.value,
+          time: element.time
         }
         this.selectedQuestions.push(qst);
 
@@ -80,11 +80,10 @@ export class UserViewComponent {
         this.selectedQuestions[index].label.push(element.txtLabel);
       } else {
         console.error("error on answer: "+element.txtLabel);
-        console.log(this.selectedQuestions[index]);
       }
     }
     console.log(this.selectedQuestions );
-    this.selectedQuestions.sort((a, b) => (a.questionId > b.questionId) ? 1 : -1);
+    this.selectedQuestions.sort((a, b) => (a.time > b.time) ? 1 : -1);
   }
 
 }

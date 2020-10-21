@@ -420,7 +420,6 @@ export class HomeComponent implements OnInit {
         this.tags[indexTag].amount += 1;
       }
 
-
       var tmpData = {
         txtLabel: rc.option,
         value: parseInt(rc.value),
@@ -429,7 +428,9 @@ export class HomeComponent implements OnInit {
         questionId: rc.questionId,
         questionType: rc.questionType,
         user: rc.user,
-        session: rc.session
+        session: rc.session,
+        date: rc.date,
+        time: rc.time
       }
 
 
