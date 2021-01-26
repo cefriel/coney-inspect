@@ -1,0 +1,67 @@
+<div style="padding: 3rem 1.5rem 0rem 1.5rem; position: relative;">
+
+    <div *ngIf="!noQuestions" class="row card" style="padding: 2rem;">
+      
+      <div id="questionSelect" class="col-lg-12 col-md-12 col-xs-12">
+        <h2 style="width: 100%;">Checkboxes</h2>
+        <mat-form-field style="width: 100%;">
+          <mat-label>Questions</mat-label>
+          <mat-select [(value)]="selectedQuestion" (selectionChange)="updateChart()">
+            <mat-option *ngFor="let question of inputAnswers" [value]="question">
+              <span>☑️</span>
+              {{question.text}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        
+       
+      </div>
+      <h3 class="col-lg-12 col-md-12 col-xs-12 text-center">
+        <span *ngIf="selectedQuestion.tag!=''" class="custom-chip">{{selectedQuestion.tag}}</span>
+        <span *ngIf="!noData">Answers: {{totalAnswers}}</span></h3>
+
+      <div id="chart" class="col-lg-12 col-md-12 col-xs-12">
+        <div class="row center" style="margin-left: 2.5em; height: 100%; width: 100%;">
+            <div *ngIf="!noData" style="display: block; max-height: 100%; width: 100%; max-width: 600px;">
+              <canvas baseChart [data]="chartData" [labels]="chartLabels" [chartType]="chartType" [colors]="chartTheme"
+                [options]="chartOptions" [plugins]="chartPlugins" [legend]="chartLegend">
+              </canvas>
+            </div>
+            <h5 *ngIf="noData" >No answers for this question</h5>
+          </div>
+      </div>
+
+      <div id="freeAnswers-div" class="col-md-12 col-xs-12" style="padding-top: 2rem;" *ngIf="selectedQuestion.freeAnswers!=undefined && selectedQuestion.freeAnswers.length>0">
+        <div class="row center" style="width: 100%;">
+            <h3 style="width: 100%;padding-left: 2rem;">Free answers</h3>
+            <ul id="otherList">
+              <li *ngFor="let freeAnswer of selectedQuestion.freeAnswers">{{freeAnswer}}</li>
+            </ul>
+          </div>
+      </div>
+    </div>
+    
+    <div *ngIf="noQuestions" class="row card" style="padding: 2rem;">
+      <h3 class="col-lg-12 col-md-12 col-xs-12">No checkbox questions found in this survey</h3>
+    </div>
+  </div>
+
+
+
+
+
+  <!--<div class="row fw center" style="padding-top: 3em;">
+  
+          <button mat-button *ngIf="visualization=='bar'"
+          (click)="changeVisualization('cubes')">
+            <img src="./assets/icons/ic_pie_chart.svg" alt="pie" style="height: 3em; margin-top: 16px;"> 
+            <h4>Show cubes</h4>
+          </button>
+                    
+          <button mat-button *ngIf="visualization=='cubes'"
+          (click)="changeVisualization('bar')">
+          <img src="./assets/icons/ic_bar_chart.svg" alt="pie" style="height: 3em; margin-top: 16px;"> 
+            <h4>Show Bar Chart</h4>
+          </button>
+  
+        </div>-->

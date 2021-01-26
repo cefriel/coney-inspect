@@ -1,0 +1,79 @@
+<div class="pb-lg-10" style="padding: 3rem 1.5rem 0rem 1.5rem; position: relative;"> 
+
+    <div *ngIf="!noQuestions" class="row card" style="padding: 2rem;">
+      
+      <div id="questionSelect" class="col-md-12 col-xs-12">
+  
+        <div class="row fw" style="margin-bottom: 3rem;">
+          <h2 class="col-lg-10 col-md-9 col-xs-9">Tags</h2>
+          <div class="col-lg-2 col-md-3 col-xs-3" style="text-align: right;">
+  
+            <button mat-button *ngIf="visualization=='bar' && !noData" class="change-viz-btn"
+            (click)="changeVisualization('line')">
+              <img src="./assets/icons/ic_line_chart.svg" alt="pie" style="height: 2em;"> 
+            </button>
+            
+            
+            <button mat-button *ngIf="visualization=='line' && !noData" class="change-viz-btn"
+            (click)="changeVisualization('bar')">
+            <img src="./assets/icons/ic_bar_chart.svg" alt="pie" style="height: 2em;"> 
+              
+            </button>
+    
+          </div>
+          
+        </div>
+  
+        <div class="row fw" style="margin-bottom: 2rem!important;">
+          <div class="col-lg-6 col-md-6 col-xs-6">
+            <mat-form-field style="width: 100%;">
+              <mat-label>Choice</mat-label>
+              <mat-select [(value)]="selectedTag" (selectionChange)="updateChart()">
+                <mat-option *ngFor="let tag of inputAnswers" [value]="tag">
+                  
+                  {{tag.tag}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-6 col-md-6 col-xs-6 text-center">
+            <h3 class="m-0"><span *ngIf="!noData">Answers: {{totalAnswers}}</span></h3>
+            <h3 class="m-0"><span *ngIf="!noData">avg: {{averageValue}}</span></h3>
+          </div>
+        </div>
+  
+      </div>
+
+      <div class="row fw center text-center" *ngIf="!scaleCorrect" style="margin-bottom: 2rem!important; margin-top: 1rem">
+        <p style="color: red!important"><i>This tag includes questions with different scales</i></p>
+      </div>
+  
+      <div id="chart" class="col-md-12 col-xs-12">
+        <div class="row center" style="margin-left: 2.5em; height: 100%; width: 100%;">
+  
+            <div *ngIf="!noData" style="display: block; max-height: 100%; width: 100%; max-width: 600px;">
+             <canvas baseChart [data]="chartData" [labels]="chartLabels" [chartType]="chartType" [colors]="chartTheme"
+                [options]="chartOptions" [plugins]="chartPlugins" [legend]="chartLegend" style="max-height: 100%"> 
+              </canvas>
+              
+            </div>
+            <h5 *ngIf="noData" >No answers for this tag</h5>
+  
+        </div>
+       
+  
+      </div>
+
+      <div class="row fw " *ngIf="selectedTag.questions.length > 0" style="margin-bottom: 2rem!important;">
+        <h4 class="m-0" style="width: 100%;padding-left: 2rem; padding-top: 2rem;">Questions included</h4>
+        <ul style="width: 100%; ">
+          <li *ngFor="let question of selectedTag.questions">[{{question.min}} - {{question.max}}] {{question.question}}</li>
+        </ul>
+      </div>
+
+    </div>
+  
+    <div *ngIf="noQuestions" class="row card" style="padding: 2rem;">
+      <h3 class="col-lg-12 col-md-12 col-xs-12">No tags found in this survey</h3>
+    </div>
+  </div>

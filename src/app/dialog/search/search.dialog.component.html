@@ -1,0 +1,56 @@
+<div id="convListDiv" class="text-center">
+
+    <div class="row fw center" style="padding-top: 1rem;">
+
+      <h1 class="text-center" style="width: 100%;margin: 0px!important">Choose a conversation</h1>
+      <form class="row fw" style="margin: 0px; width: 100%">
+        <div class="flex-fw">
+          <mat-form-field style="width: 100%;">
+            <input matInput id="titleInput" [(ngModel)]="titleValue" [ngModelOptions]="{standalone: true}"
+              class="fw" type="text" placeholder="Title" (input)="titleSelectionChanged()">
+          </mat-form-field>
+        </div>
+       
+        <div class="flex-fw">
+          <mat-form-field class="fw">
+            <mat-label>Projects</mat-label>
+            <mat-select [(value)]="selectedProject" (selectionChange)="selectionChanged()">
+              <mat-option *ngFor="let i of projects" [value]="i">
+                {{i}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </form>
+    </div>
+
+    <div id="convList">
+
+      <p class="text-light text-center" *ngIf="!conversationsFound; else showConversations">No conversations found</p>
+
+      <ng-template #showConversations>
+
+        <div *ngFor="let conversation of conversations" (click)="conversationSelected(conversation)">
+
+          <button mat-button type="button" style="width: 100%" class="text-left py-2">
+
+            <div class="row" style="line-height: 1; margin-left: 2.5rem!important; padding-bottom: 1rem!important; padding-top: 1rem!important;"> 
+              <h3 class="m-0">{{conversation.conversationTitle}}</h3>
+              <p style="width: 100%; color: gray; text-align: left;" class="m-0"> {{conversation.projectName}} </p>
+              <span *ngIf="conversation.accessLevel == 1" style="position: absolute;  right: 1.5rem; top: 1.5rem; color: gray;">Public</span>
+              <span *ngIf="conversation.accessLevel == 2" style="position: absolute;  right: 1.5rem; top: 1.5rem; color: gray;">Restricted</span>
+              <span *ngIf="conversation.accessLevel == 3" style="position: absolute;  right: 1.5rem; top: 1.5rem; color: gray;">Private</span>
+            </div>
+
+            <p *ngIf="conversation.status == 'published'" class="px-2 status-indicator"  style="background-color: #4caf50">P</p>
+            <p *ngIf="conversation.status == 'saved'" class="px-2 status-indicator"  style="background-color: #6c757d">S</p>
+            <p *ngIf="conversation.status == 'unpublished'" class="px-2 status-indicator"  style="background-color: #03a9f4">U</p>
+            
+
+          </button>
+          <mat-divider></mat-divider>
+        </div>
+      </ng-template>
+
+    </div>
+  </div>

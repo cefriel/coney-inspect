@@ -1,0 +1,66 @@
+<div style="padding: 1.5rem 1.5rem 0 1.5rem; position: relative;">
+
+  <div class="row card" id="card-intro" style="padding: 3rem;">
+   
+
+    <div class="col-lg-3 col-md-3 col-xs-6">
+      <h3 class="gray text-center-full">Compilations</h3>
+      <h2 class="text-center-full">{{inputAnswers.totSessions}}</h2>
+    </div>
+
+    <div class="col-lg-3 col-md-3 col-xs-6">
+      <h3 class="gray text-center-full">Users</h3>
+      <h2 class="text-center-full">{{inputAnswers.totUsers}}</h2>
+    </div>
+
+    <div class="col-lg-3 col-md-3 col-xs-6">
+      <h3 class="gray text-center-full">Completed</h3>
+      <h2 class="text-center-full">{{inputAnswers.totSessions - inputAnswers.totUnfinished}}</h2>
+    </div>
+
+    <div class="col-lg-3 col-md-3 col-xs-6">
+      <h3 class="gray text-center-full">Unfinished</h3>
+      <h2 class="text-center-full">{{inputAnswers.totUnfinished}}</h2>
+    </div>
+
+    <hr class="col-12" style="width: 100%; margin-top: 2rem; margin-bottom: 3rem;">
+
+    
+
+    <div id="duration" class="info-chart col-lg-4 col-md-6 col-xs-12" style="padding: 1rem;">
+      <div class="row center" style="height:100%; width:100%">
+        <h4 class="col-xs-12 col-md-12 col-lg-12 text-center">Duration ({{durationUnits}})</h4>
+        <div *ngIf="!durationDataEmpty" style="display: block; width: 100%; max-width: 450px;">
+          <canvas baseChart [data]="durationChartData" [labels]="durationChartLabels" [chartType]="chartType" [colors]="chartColors"
+            [options]="chartOptions" [plugins]="chartPlugins" [legend]="chartLegend">
+          </canvas>
+        </div>
+        <h5 *ngIf="durationDataEmpty" >No finished surveys found</h5>
+      </div>
+    </div>
+
+    <div id="dates" class="info-chart col-lg-4 col-md-6 col-xs-12" style="padding: 1rem;">
+      <div class="row center" style="height:100%; width:100%">
+        <h4 class="col-xs-12 col-md-12 col-lg-12 text-center">Dates</h4>
+        <div style="display: block; width: 100%; max-width: 450px;">
+          <canvas baseChart [data]="datesChartData" [labels]="datesChartLabels" [chartType]="chartType" [colors]="chartColors"
+            [options]="chartOptions" [plugins]="chartPlugins" [legend]="chartLegend">
+          </canvas>
+        </div>
+      </div>
+    </div>
+
+    <div id="time" class="info-chart col-lg-4 col-md-12 col-xs-12" style="padding: 1rem;">
+      <div class="row center" style="height:100%; width:100%">
+        <h4 class="col-xs-12 col-md-12 col-lg-12 text-center">Times</h4>
+        <div style="display: block; width: 100%; max-width: 450px;">
+          <canvas baseChart [data]="timesChartData" [labels]="timesChartLabels" [chartType]="chartType" [colors]="chartColors"
+            [options]="chartOptions" [plugins]="chartPlugins" [legend]="chartLegend">
+          </canvas>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>

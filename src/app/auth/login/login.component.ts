@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, Params, ActivatedRoute } from '@angular/router';
-import { AuthenticationService } from '../../services/authentication.service';
+import { AuthenticationService } from '../../services/auth-services/authentication.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -21,13 +21,7 @@ export class LoginComponent implements OnInit {
     private loginservice: AuthenticationService) { }
 
   ngOnInit() {
-    this.route.queryParams.subscribe(params => {
-      console.log(params);
-      if (params["data"]) {
-        this.id = params["data"];
-        sessionStorage.setItem("conv", this.id);
-      }
-    });
+    
     if (!environment.enterprise) {
       this.router.navigate([''], { queryParams: this.route.queryParams });
     }
@@ -40,7 +34,9 @@ export class LoginComponent implements OnInit {
     (this.loginservice.authenticate(this.username, this.password).subscribe(
       data => {
         this.isLogging = false;
-        this.router.navigate([''])
+        this.router.navigate([''], { queryParams: {
+          s: "search"
+        }});
         this.invalidLogin = false
       },
       error => {

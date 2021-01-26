@@ -1,0 +1,27 @@
+<div style="padding: 3rem 1.5rem 0 1.5rem; position: relative;">
+
+  <div class="row card" id="card-intro-language"
+    style="padding: 2rem 3rem; margin-bottom: 1.5rem!important;">
+    <h2 style="margin: 0;">Filters</h2>
+
+    <div *ngIf="languages!=undefined && languages.length > 1"  class="col-lg-12 mol-md-12 col-xs-12">
+      <h3 class="fw text-center" style="color: gray!important;">Languages</h3>
+      <ul style="list-style: none; text-align: center; padding-left: 0;">
+        <li *ngFor="let language of languages" style="display: inline-block; margin-left: 20px; margin-right: 20px;">
+          <mat-checkbox [(ngModel)]="language.checked" (ngModelChange)="languageSelected()" [color]="'primary'"> 
+            <h3 style="margin-bottom: 0px;">
+              <span class="language-amount">{{language.number}}</span>
+              
+              {{language.lang}}</h3>
+          </mat-checkbox>
+        </li>
+      </ul>
+     
+    </div>
+
+    <div class="col-lg-12 mol-md-12 col-xs-12 text-center" style="font-weight: 500;">
+      <hr>
+      <mat-checkbox [(ngModel)]="showUnfinishedSelected" (ngModelChange)="languageSelected()"  [color]="'primary'"> Show unfinished surveys</mat-checkbox>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,86 @@
+<div style="padding: 3rem 1.5rem 4rem 1.5rem; position: relative;">
+
+    <div class="row card" style="padding: 2rem;margin-bottom:1.5rem!important; justify-content: center;">
+        <h3 style="width: 100%;">Users</h3>
+        <div class="col-lg-12 col-md-12 col-xs-12">
+            <mat-form-field style="width: 100%;">
+                <mat-label>Selected</mat-label>
+                <mat-select [(value)]="selectedUser" (selectionChange)="updateData()">
+                    <mat-option *ngFor="let user of inputAnswers" [value]="user">
+                        🧍 <span *ngIf="user.duration == 'unfinished' && user != selectedUser"><i style="color: gray!important;">{{user.duration}}</i></span>
+                        {{user.user}} - {{user.session}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <hr class="col-lg-12 col-md-12 col-xs-12" *ngIf="selectedUser!=undefined">
+
+        <div class="col-lg-4 col-md-4 col-xs-4 text-center" *ngIf="selectedUser!=undefined">
+            <h4 style="color: gray;">🌎 <span style="color: black;">{{selectedUser.language}}</span></h4>
+        </div>
+        <div class="col-lg-4 col-md-4 col-xs-4 text-center" *ngIf="selectedUser!=undefined">
+            <h4 style="color: gray;">📅 <span style="color: black;">{{selectedUser.date}}</span></h4>
+        </div>
+        <div class="col-lg-4 col-md-4 col-xs-4 text-center" *ngIf="selectedUser!=undefined">
+            <h4 style="color: gray;">⏱️ <span style="color: black;">{{selectedUser.duration}}</span></h4>
+        </div>
+
+        <!--metadata-->
+        <div class="col-lg-4 col-md-4 col-xs-4 text-center" *ngIf="selectedUser!=undefined && selectedUser.meta1!=''" style="padding-top: 2rem;">
+            <h4 style="color: gray;">🔗 <span style="color: black;">{{selectedUser.meta1}}</span></h4>
+        </div>
+        <div class="col-lg-4 col-md-4 col-xs-4 text-center" *ngIf="selectedUser!=undefined && selectedUser.meta2!=''" style="padding-top: 2rem;">
+            <h4 style="color: gray;">🔗 <span style="color: black;">{{selectedUser.meta2}}</span></h4>
+        </div>
+
+    </div>
+    <h2 style="padding: 2rem;" *ngIf="selectedUser!=undefined">Questions</h2>
+    <div *ngFor="let question of selectedUser.answers" class="row card"
+        style="padding: 2rem; margin-bottom: 1rem!important;">
+
+        <h3 class="col-lg-11 col-md-11 col-xs-10">
+            <span *ngIf="question.tag!=''" class="custom-chip" style="margin-left: -3px!important">{{question.tag}}</span> {{question.question}} <br> <span style="color: gray!important;">{{question.type}}</span>
+        </h3>
+        <span class="col-lg-1 col-md-1 col-xs-2" style="text-align: right; color: gray!important;">
+            {{question.time}}</span>
+
+
+        <div *ngIf="question.type == 'star'" style="width: 100%;">
+            <h4 style="width: 100%; margin-bottom: .5rem!important">⭐ {{question.text}} </h4>
+        </div>
+
+        <div *ngIf="question.type == 'options'" style="width: 100%;">
+            <h4 style="width: 100%; margin-bottom: .5rem!important">🔘 {{question.text}} </h4>
+            <h4 style="width: 100%; color: gray!important" *ngIf="question.value != question.text">v: {{question.value}}
+            </h4>
+        </div>
+
+        <div *ngIf="question.type == 'emoji'" style="width: 100%;">
+            <h4 style="width: 100%; margin-bottom: .5rem!important">😄 {{question.text}} </h4>
+            <h4 style="width: 100%; color: gray!important" *ngIf="question.value != question.text">v: {{question.value}}
+            </h4>
+        </div>
+
+        <div *ngIf="question.type == 'slider'" style="width: 100%;">
+            <h4 style="width: 100%; margin-bottom: .5rem!important">➖ {{question.text}} </h4>
+            <h4 style="width: 100%; color: gray!important" *ngIf="question.value != question.text">v: {{question.value}}
+            </h4>
+        </div>
+
+        <div *ngIf="question.type == 'select'" style="width: 100%;">
+            <h4 style="width: 100%; margin-bottom: .5rem!important">🔽 {{question.text}} </h4>
+            <h4 style="width: 100%; color: gray!important" *ngIf="question.value != question.text">v: {{question.value}}
+            </h4>
+        </div>
+
+        <div *ngIf="question.type == 'checkbox'" style="width: 100%;">
+            <h4 *ngFor="let a of question.text.split(',,')" style="width: 100%;">☑️ {{a}}</h4>
+        </div>
+
+        <div *ngIf="question.type == 'text' || question.type == 'number' || question.type == 'date' || 
+        question.type == 'time' || question.type == 'email' || question.type == 'link'" style="width: 100%;">
+            <h4>📜 {{question.text}}</h4>
+        </div>
+
+    </div>
+</div>
