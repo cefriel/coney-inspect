@@ -3,8 +3,8 @@ export class CSVRecord {
     public question: any;
     public questionId: any;
     public questionType: any;
-    public projectId: any;
-    public projectName: any;
+    public meta1: any;
+    public meta2: any;
     public tag: any;
     public option: any;
     public value: any;

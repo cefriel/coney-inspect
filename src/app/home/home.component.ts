@@ -217,8 +217,8 @@ export class HomeComponent implements OnInit {
         csvRecord.questionId = currentRecord[header.findIndex(x => x == "questionId")].trim();
         csvRecord.questionType = currentRecord[header.findIndex(x => x == "questionType")].trim().replace(/["]+/g, '');
         csvRecord.language = currentRecord[header.findIndex(x => x == "language")].trim().replace(/["]+/g, '');
-        csvRecord.projectId = currentRecord[header.findIndex(x => x == "projectId")].trim();
-        csvRecord.projectName = currentRecord[header.findIndex(x => x == "projectName")].trim().replace(/["]+/g, '');
+        csvRecord.meta1 = currentRecord[header.findIndex(x => x == "meta1")].trim().replace(/["]+/g, '');
+        csvRecord.meta2 = currentRecord[header.findIndex(x => x == "meta2")].trim().replace(/["]+/g, '');
         csvRecord.tag = currentRecord[header.findIndex(x => x == "tag")].trim().replace(/["]+/g, '');
         csvRecord.option = currentRecord[header.findIndex(x => x == "option")].trim().replace(/["]+/g, '');
         csvRecord.value = currentRecord[header.findIndex(x => x == "value")].trim();
@@ -456,7 +456,6 @@ export class HomeComponent implements OnInit {
     this.dataGeneric = { participants: this.users.length, sessions: this.sessions.length, unfinished: unfinishedTotal };
     this.loadDuration();
   }
-
 
   //Filter visualized data (events)
   tagChosen(tag) {
