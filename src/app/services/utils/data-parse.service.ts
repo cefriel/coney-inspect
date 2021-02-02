@@ -78,7 +78,13 @@ export class DataParseService {
       }
 
       if (data[i].tag != "") {
-        this.manageTagsQuestionData(data[i]);
+
+        //check the scale 
+        var valuesIndex = data.findIndex(x => x.value != data[i].value && x.questionId == data[i].questionId);
+        if(valuesIndex != -1 || data[i].value != 0){
+          this.manageTagsQuestionData(data[i]);
+        }
+        
       }
 
       if (data[i].questionType != "date" && data[i].questionType != "text" && data[i].questionType != "checkbox"
@@ -196,6 +202,7 @@ export class DataParseService {
 
   //parse multiple choice questions
   manageTagsQuestionData(data: any) {
+
     //Tags part
     var tagIndex = this.tagsQuestionsData.findIndex(x => x.tag == data.tag);
     if (tagIndex == -1) {
@@ -232,6 +239,7 @@ export class DataParseService {
     if (parseInt(data.value) > this.tagsQuestionsData[tagIndex].questions[questionIndex].max) {
       this.tagsQuestionsData[tagIndex].questions[questionIndex].max = parseInt(data.value)
     }
+
 
     //ANSWER part
     var answered = 0;

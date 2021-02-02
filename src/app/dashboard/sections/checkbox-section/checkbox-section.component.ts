@@ -69,7 +69,13 @@ export class CheckboxSectionComponent implements OnInit, OnChanges {
     this.chartLabels = [];
     this.chartData = [];
     for (var i = 0; i < this.selectedQuestion.answers.length; i++) {
-      this.chartLabels.push(this.selectedQuestion.answers[i].text);
+
+      var textToAdd = this.selectedQuestion.answers[i].text;
+      if(this.selectedQuestion.answers[i].text.length>30){
+        textToAdd=this.selectedQuestion.answers[i].text.substring(0, 29)+"...";
+      }
+
+      this.chartLabels.push(textToAdd);
       this.chartData.push(this.selectedQuestion.answers[i].totalAnswers);
       this.totalAnswers+=this.selectedQuestion.answers[i].totalAnswers;
     }

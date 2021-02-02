@@ -58,7 +58,7 @@
                 }
               ]
             },
-            "docker":{
+            "docker": {
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
@@ -82,7 +82,7 @@
                 }
               ]
             },
-            "docker-test":{
+            "docker-test": {
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
@@ -171,5 +171,8 @@
       }
     }
   },
-  "defaultProject": "coney-inspect"
+  "defaultProject": "coney-inspect",
+  "cli": {
+    "analytics": false
+  }
 }

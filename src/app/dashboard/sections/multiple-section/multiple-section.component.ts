@@ -49,7 +49,6 @@ export class MultipleSectionComponent implements OnInit, OnChanges {
   evaluated = false;
 
   constructor() {
-
     monkeyPatchChartJsTooltip();
     monkeyPatchChartJsLegend();
   }
@@ -63,7 +62,6 @@ export class MultipleSectionComponent implements OnInit, OnChanges {
     this.totalValue=0;
     this.averageValue="";
     this.evaluated = false;
-    console.log(this.inputAnswers);
     if(this.inputAnswers.length == 0){
       this.noQuestions = true;
       return;
@@ -94,10 +92,16 @@ export class MultipleSectionComponent implements OnInit, OnChanges {
       if(this.selectedQuestion.type=="star"){
         this.chartLabels.push(this.selectedQuestion.answers[i].value);
       } else {
+
+        var textToAdd = this.selectedQuestion.answers[i].text;
+        if(this.selectedQuestion.answers[i].text.length>30){
+          textToAdd=this.selectedQuestion.answers[i].text.substring(0, 29)+"...";
+        }
+
         if(this.selectedQuestion.answers[i].value!=0){
-          this.chartLabels.push(this.selectedQuestion.answers[i].value + " - "+this.selectedQuestion.answers[i].text );
+          this.chartLabels.push(this.selectedQuestion.answers[i].value + " - "+textToAdd );
         } else {
-          this.chartLabels.push(this.selectedQuestion.answers[i].text );
+          this.chartLabels.push(textToAdd);
         };
       }
       this.chartData.push(this.selectedQuestion.answers[i].totalAnswers);
@@ -106,8 +110,6 @@ export class MultipleSectionComponent implements OnInit, OnChanges {
 
     if(highest != lowest){
       this.evaluated = true;
-      console.log(this.totalValue);
-      console.log(this.totalAnswers);
       this.averageValue = (this.totalValue/this.totalAnswers).toFixed(2);
     }
 
