@@ -17,18 +17,22 @@ export class DataParseService {
     languages: []
   }
 
+  orderedQuestions = [];
+
   closedQuestionsData = [];
   tagsQuestionsData = [];
   checkboxQuestionsData = [];
   openQuestionsData = [];
   usersData = [];
+  allQuestions = [];
 
 
 
   //data parsed for the charts
   constructor() { }
 
-  initialDataParse(data: [any], filter) {
+  initialDataParse(data: [any], questions:[any], filter) {
+    this.orderedQuestions = questions;
     this.genericData = {
       totUsers: 0,
       totSessions: 0,
@@ -45,13 +49,14 @@ export class DataParseService {
     this.openQuestionsData = [];
     this.tagsQuestionsData = [];
     this.usersData = [];
+    this.allQuestions = [];
 
     //order data
     data.sort(function (a, b) { return a.order - b.order });
 
 
     for (var i = 0; i < data.length; i++) {
-
+     
       //language filter
       if (filter != undefined && filter.languages != undefined) {
         var langIndex = filter.languages.findIndex(x => x.tag == data[i].language);
@@ -104,14 +109,17 @@ export class DataParseService {
       }
 
     }
-    console.log(this.genericData);
+    this.allQuestions = [].concat(this.closedQuestionsData, this.checkboxQuestionsData, this.openQuestionsData);
+    this.allQuestions.sort(function (a, b) { return a.depth - b.depth });
+
     return {
       generic: this.genericData,
       closed: this.closedQuestionsData,
       tags: this.tagsQuestionsData,
       checkbox: this.checkboxQuestionsData,
       open: this.openQuestionsData,
-      users: this.usersData
+      users: this.usersData,
+      all: this.allQuestions
     }
   }
 
@@ -165,18 +173,20 @@ export class DataParseService {
   manageClosedQuestionData(data: any) {
     //Question part
     var indexQuestion = this.closedQuestionsData.findIndex(obj => (obj.id == data.questionId));
+    var indexOrder = this.orderedQuestions.findIndex(x => x.neo4jId == data.questionId);
+    var depth = this.orderedQuestions[indexOrder].depth;
     if (indexQuestion == -1) {
       var singleClosedQuestion = {
         id: data.questionId,
         type: data.questionType,
         text: data.question,
         tag: data.tag,
+        depth: depth,
         answers: []
       }
       this.closedQuestionsData.push(singleClosedQuestion);
       indexQuestion = this.closedQuestionsData.length - 1;
     }
-
 
     //ANSWER part
     var answered = 0;
@@ -265,6 +275,8 @@ export class DataParseService {
 
     //Question part
     var indexQuestion = this.checkboxQuestionsData.findIndex(obj => (obj.id == data.questionId));
+    var indexOrder = this.orderedQuestions.findIndex(x => x.neo4jId == data.questionId);
+    var depth = this.orderedQuestions[indexOrder].depth;
     if (indexQuestion == -1) {
       var singleCheckboxQuestion = {
         id: data.questionId,
@@ -272,6 +284,7 @@ export class DataParseService {
         text: data.question,
         tag: data.tag,
         sessions: [data.session],
+        depth: depth,
         answers: [],
         freeAnswers: []
       }
@@ -317,12 +330,16 @@ export class DataParseService {
 
     //Question part
     var indexQuestion = this.openQuestionsData.findIndex(obj => (obj.id == data.questionId));
+    var indexOrder = this.orderedQuestions.findIndex(x => x.neo4jId == data.questionId);
+    var depth = this.orderedQuestions[indexOrder].depth;
+    
     if (indexQuestion == -1) {
       var singleOpenQuestion = {
         id: data.questionId,
         type: data.questionType,
         text: data.question,
         tag: data.tag,
+        depth: depth,
         answers: []
       }
       this.openQuestionsData.push(singleOpenQuestion);
@@ -382,6 +399,8 @@ export class DataParseService {
       this.usersData[indexUser].answers.push(userAnswer);
     }
   }
+
+  //TODO manage overview data 
 
   getLanguageFromTag(tag: string) {
     let languages = [{ lang: "Afrikaans", tag: "af" }, { lang: "Albanian ", tag: "sp" }, { lang: "Arabic", tag: "ar" }, { lang: "Basque", tag: "eu" },

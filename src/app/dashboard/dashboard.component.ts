@@ -37,6 +37,7 @@ export class DashboardComponent implements OnInit {
   @Output() exportData = new EventEmitter<any>();
   @Output() changeSurvey = new EventEmitter<any>();
   @Input() rawAnswers: any;
+  @Input() orderedQuestions: any;
 
   view = "charts";
 
@@ -84,10 +85,12 @@ export class DashboardComponent implements OnInit {
   }
 
   parseData(filter:any){
+   
     this.noData = false;
     if (this.rawAnswers.length != 0) {
-      this.parsedAnswers = this.dataParse.initialDataParse(this.rawAnswers, filter);
-
+      console.log("Parsing data");
+      this.parsedAnswers = this.dataParse.initialDataParse(this.rawAnswers, this.orderedQuestions, filter);
+      console.log(this.parsedAnswers);
       if (this.parsedAnswers.generic.totSessions == 0) {
         this.showCharts = false;
         this.noData = true;

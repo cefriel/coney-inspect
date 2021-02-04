@@ -40,6 +40,9 @@ import { OpenSectionComponent } from './dashboard/sections/open-section/open-sec
 import { DownloadCSVDialogComponent } from './dialog/download/download-csv.dialog.component';
 import { LanguageSectionComponent } from './dashboard/sections/language-section/language-section.component';
 import { SearchDialogComponent } from './dialog/search/search.dialog.component';
+import { ReportSectionComponent } from './dashboard/sections/report-section/report-section.component';
+import { MultipleChoiceChartComponent } from './dashboard/charts/multiple-choice-chart/multiple-choice-chart.component';
+import { CheckboxChartComponent } from './dashboard/charts/checkbox-chart/checkbox-chart.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +59,10 @@ import { SearchDialogComponent } from './dialog/search/search.dialog.component';
     LanguageSectionComponent,
     OpenSectionComponent,
     DownloadCSVDialogComponent,
-    SearchDialogComponent
+    SearchDialogComponent,
+    ReportSectionComponent,
+    MultipleChoiceChartComponent,
+    CheckboxChartComponent
   ],
   imports: [
     BrowserModule,

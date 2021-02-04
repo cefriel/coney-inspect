@@ -1,6 +1,6 @@
 <div class="container" style="padding-top: 10rem;">
 
-    <div id="chartsView" class="row fw"  *ngIf="view=='charts'" [@chartsAnimation]>
+    <div id="chartsView" class="row fw"  *ngIf="view=='charts' || view=='report'" [@chartsAnimation]>
 
         <div class="col-xs-12 col-md-12 col-lg-12" *ngIf="parsedAnswers!=undefined">
             <app-language-section 
@@ -55,6 +55,15 @@
         </div>
     </div>
     
+
+    <div id="reportView" class="row fw" *ngIf="view=='report' && !noData" [@usersAnimation]>
+        <div class="col-xs-12 col-md-12 col-lg-12">
+          <app-report-section *ngIf="this.rawAnswers.length != 0" [inputAnswers]="parsedAnswers.all"></app-report-section>
+        </div>
+    </div>
+
+
+
     <div id="noDataView" class="row fw"  *ngIf="noData" style="padding-top: 25vh;">
         <div class="col-xs-12 col-md-12 col-lg-12 text-center">
             <h3 *ngIf="!noSurvey && !displayClearFilterButton">No answers recorded for this survey yet</h3>
@@ -95,15 +104,21 @@
         </button>
       </li>
       <li class="nav-item">
-        <button *ngIf="view == 'charts'" mat-button aria-label="switch to user view" (click)="changeView('users')"
+        <button *ngIf="view != 'report'"  mat-button aria-label="Show report" title="Show report" (click)="changeView('report')">
+            <img src="./assets/icons/ic_report.svg" style="height: 20px">
+        </button>
+      </li>
+      <li class="nav-item">
+        <button *ngIf="view == 'charts' || view == 'report'" mat-button aria-label="switch to user view" (click)="changeView('users')"
         title="Users view">
         <mat-icon style="color: #4A5568; font-size: 20px">supervised_user_circle</mat-icon>
         </button>
-
-        <button *ngIf="view == 'users'" mat-button aria-label="switch to charts view" (click)="changeView('charts')"
-            title="Charts view">
-            <mat-icon style="color: #4A5568; font-size: 20px">table_chart</mat-icon>
-        </button>
+      </li>
+      <li class="nav-item">
+        <button *ngIf="view == 'users' || view == 'report'" mat-button aria-label="switch to charts view" (click)="changeView('charts')"
+        title="Charts view">
+        <mat-icon style="color: #4A5568; font-size: 20px">table_chart</mat-icon>
+    </button>
       </li>
     </ul> 
   </div>

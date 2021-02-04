@@ -14,7 +14,9 @@ export class DataRetrievalService {
     conversationId: "",
     err: "",
     success: false,
-    parsedData: []
+    success_order: false,
+    parsedData: [],
+    orderedQuestions: []
   };
 
   public results$ = new BehaviorSubject<any>({});
@@ -23,7 +25,7 @@ export class DataRetrievalService {
 
   public dataGatheringComplete(): Observable<any> {
 
-    if (this.data.success) {
+    if (this.data.success && this.data.success_order) {
       this.data.ready = true;
       this.results$.next(this.data);
       return this.results$.asObservable();
@@ -49,6 +51,23 @@ export class DataRetrievalService {
         this.data.err = "No conversation found";
         this.data.success = false;
         this.dataGatheringComplete();
+      }
+    );
+
+    let endpoint_order = '/data/getOrderedQuestions';
+    endpoint_order = endpoint_order + '?conversationId=' + conversationId;
+
+    this.backend.getRequest(endpoint_order).subscribe(
+      (res) => {
+        this.data.orderedQuestions = JSON.parse(res);
+        this.data.success_order = true;
+        this.dataGatheringComplete();
+
+      }, err => {
+        this.data.err = "No questions found";
+        this.data.success_order = false;
+        this.dataGatheringComplete();
+        
       }
     );
   }

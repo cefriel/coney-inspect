@@ -26,6 +26,7 @@ export class HomeComponent implements OnInit {
   conversations = [];
   projects = [];
   rawAnswers: any = [];
+  orderedQuestions: any = [];
 
   interface = "search"; //displayed screen
 
@@ -45,7 +46,6 @@ export class HomeComponent implements OnInit {
 
   initialize() {
     this.loading = true;
-    console.log(sessionStorage.getItem("conv"));
 
     if (sessionStorage.getItem("conv") == null) {
 
@@ -99,7 +99,6 @@ export class HomeComponent implements OnInit {
   }
 
   selectedConversation(event) {
-    console.log("selected  conv: ")
     var oldConv = sessionStorage.getItem("conv");
 
     if(event==undefined && oldConv == null){
@@ -123,14 +122,11 @@ export class HomeComponent implements OnInit {
     this.title = "Coney Inspect";
     sessionStorage.removeItem("conv");
     sessionStorage.removeItem("title");
-
-    console.log("searching survey ")
     this.rawAnswers = [];
   }
 
 
   getData(conversationId, conversationTitle) {
-    console.log("data requested for: "+conversationTitle);
     this.loading = true;
     this.dataRetrievalService.conversationChosen(conversationId, conversationTitle);
     this.dataRetrievalSubscription = this.dataRetrievalService.results$.subscribe(
@@ -139,10 +135,10 @@ export class HomeComponent implements OnInit {
         if(res.conversationId != conversationId || res.parsedData == undefined){
           return;}
           
-          console.log(res);
-
         this.loading = false;
         this.rawAnswers = res.parsedData;
+        this.orderedQuestions = res.orderedQuestions;
+
         if (res.success) {
           this.stopDataSubscription();
         }

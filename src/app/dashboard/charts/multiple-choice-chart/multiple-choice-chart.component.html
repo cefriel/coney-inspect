@@ -1,0 +1,17 @@
+<div class="row center">
+    <h3 class="col-lg-12 col-md-12 col-xs-12 text-center">
+        <span *ngIf="selectedQuestion.tag!=''" class="custom-chip">{{selectedQuestion.tag}}</span>
+        <span *ngIf="!noData">Answers: {{totalAnswers}} </span><span *ngIf="evaluated && !noData"> - avg value: {{averageValue}}</span>
+    </h3>
+</div>
+<div class="row center" style="margin-left: 2.5em; height: 100%; width: 100%;">
+
+  <div *ngIf="!noData" style="display: block; max-height: 100%; width: 100%; max-width: 600px;">
+    <canvas baseChart [data]="chartData" [labels]="chartLabels" [chartType]="chartType" [colors]="chartTheme"
+      [options]="chartOptions" [plugins]="chartPlugins" [legend]="chartLegend" style="max-height: 100%">
+    </canvas>
+
+  </div>
+  <h5 *ngIf="noData">No answers for this question</h5>
+
+</div>

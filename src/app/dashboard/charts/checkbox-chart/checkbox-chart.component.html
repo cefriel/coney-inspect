@@ -1,0 +1,15 @@
+<div class="row center" style="margin-left: 2.5em; height: 100%; width: 100%;">
+  <div *ngIf="!noData" style="display: block; max-height: 100%; width: 100%; max-width: 600px;">
+    <canvas baseChart [data]="chartData" [labels]="chartLabels" [chartType]="chartType" [colors]="chartTheme"
+      [options]="chartOptions" [plugins]="chartPlugins" [legend]="chartLegend">
+    </canvas>
+  </div>
+  <h5 *ngIf="noData">No answers for this question</h5>
+
+  <h3 style="width: 100%;padding-left: 1rem; margin-top:2rem"
+    *ngIf="selectedQuestion.freeAnswers!=undefined && selectedQuestion.freeAnswers.length>0">
+    Free answers</h3>
+  <ul id="otherList" *ngIf="selectedQuestion.freeAnswers!=undefined && selectedQuestion.freeAnswers.length>0">
+    <li *ngFor="let freeAnswer of selectedQuestion.freeAnswers">{{freeAnswer}}</li>
+  </ul>
+</div>

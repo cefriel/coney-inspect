@@ -1,0 +1,31 @@
+<div style="padding: 3rem 1.5rem 4rem 1.5rem; position: relative;">
+
+  <div class="row card" style="padding: 2rem;margin-bottom:1.5rem!important; justify-content: center;">
+
+    <div *ngFor="let question of inputAnswers" class="col-md-12 col-xs-12">
+
+      <h2 style="margin-top:3rem; width: 100%; text-align: center">{{question.text}}</h2>
+
+      <div *ngIf="question.type == 'options' || question.type == 'star' || question.type == 'slider'
+      || question.type == 'select' || question.type == 'emoji'" id="chart">
+        <app-multiple-choice-chart [selectedQuestion]="question" [visualization]="'pie'" [legend]="legend">
+        </app-multiple-choice-chart>
+      </div>
+
+      <div *ngIf="question.type == 'checkbox'" id="chart">
+        <app-checkbox-chart [selectedQuestion]="question" [visualization]="'bar'"></app-checkbox-chart>
+      </div>
+
+      <div *ngIf="question.type == 'text' || question.type == 'number' || question.type == 'date'
+      || question.type == 'time' || question.type == 'email'" id="chart">
+        <ul>
+          <li *ngFor="let answer of question.answers">
+            {{answer.text}}
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+</div>
