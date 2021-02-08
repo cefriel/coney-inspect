@@ -1,5 +1,6 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
 
+
 @Component({
   selector: 'app-report-section',
   templateUrl: './report-section.component.html'

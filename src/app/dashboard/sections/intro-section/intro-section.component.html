@@ -9,19 +9,20 @@
     </div>
 
     <div class="col-lg-3 col-md-3 col-xs-6">
-      <h3 class="gray text-center-full">Users</h3>
-      <h2 class="text-center-full">{{inputAnswers.totUsers}}</h2>
-    </div>
-
-    <div class="col-lg-3 col-md-3 col-xs-6">
       <h3 class="gray text-center-full">Completed</h3>
       <h2 class="text-center-full">{{inputAnswers.totSessions - inputAnswers.totUnfinished}}</h2>
     </div>
 
     <div class="col-lg-3 col-md-3 col-xs-6">
-      <h3 class="gray text-center-full">Unfinished</h3>
-      <h2 class="text-center-full">{{inputAnswers.totUnfinished}}</h2>
+      <h3 class="gray text-center-full">Drop rate</h3>
+      <h2 class="text-center-full">{{(inputAnswers.totUnfinished*100)/inputAnswers.totSessions}}%</h2>
     </div>
+
+    <div class="col-lg-3 col-md-3 col-xs-6">
+      <h3 class="gray text-center-full">Distinct Users</h3>
+      <h2 class="text-center-full">{{inputAnswers.totUsers}}</h2>
+    </div>
+
 
     <hr class="col-12" style="width: 100%; margin-top: 2rem; margin-bottom: 3rem;">
 

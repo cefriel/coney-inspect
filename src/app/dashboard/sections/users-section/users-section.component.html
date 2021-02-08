@@ -51,25 +51,25 @@
 
         <div *ngIf="question.type == 'options'" style="width: 100%;">
             <h4 style="width: 100%; margin-bottom: .5rem!important">🔘 {{question.text}} </h4>
-            <h4 style="width: 100%; color: gray!important" *ngIf="question.value != question.text">v: {{question.value}}
+            <h4 style="width: 100%; color: gray!important" *ngIf="question.value != question.text">value: {{question.value}}
             </h4>
         </div>
 
         <div *ngIf="question.type == 'emoji'" style="width: 100%;">
-            <h4 style="width: 100%; margin-bottom: .5rem!important">😄 {{question.text}} </h4>
-            <h4 style="width: 100%; color: gray!important" *ngIf="question.value != question.text">v: {{question.value}}
+            <h4 style="width: 100%; margin-bottom: .5rem!important">🕵️‍♀️ {{question.text}} </h4>
+            <h4 style="width: 100%; color: gray!important" *ngIf="question.value != question.text">value: {{question.value}}
             </h4>
         </div>
 
         <div *ngIf="question.type == 'slider'" style="width: 100%;">
             <h4 style="width: 100%; margin-bottom: .5rem!important">➖ {{question.text}} </h4>
-            <h4 style="width: 100%; color: gray!important" *ngIf="question.value != question.text">v: {{question.value}}
+            <h4 style="width: 100%; color: gray!important" *ngIf="question.value != question.text">value: {{question.value}}
             </h4>
         </div>
 
         <div *ngIf="question.type == 'select'" style="width: 100%;">
             <h4 style="width: 100%; margin-bottom: .5rem!important">🔽 {{question.text}} </h4>
-            <h4 style="width: 100%; color: gray!important" *ngIf="question.value != question.text">v: {{question.value}}
+            <h4 style="width: 100%; color: gray!important" *ngIf="question.value != question.text">value: {{question.value}}
             </h4>
         </div>
 

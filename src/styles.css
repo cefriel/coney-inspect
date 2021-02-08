@@ -86,8 +86,7 @@ body { margin: 0;
 
 /*elements*/
 #otherList{
-    list-style: circle;
-    width: 100%;
+    list-style: circle!important;
     max-height: 15rem;
     overflow-y: auto;
     margin-top: 0;

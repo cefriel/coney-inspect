@@ -1,10 +1,34 @@
+<h1 class="m-0" style="
+    padding-left: 2rem;
+    padding-top: 4rem;
+">Report</h1>
+
 <div style="padding: 3rem 1.5rem 4rem 1.5rem; position: relative;">
 
-  <div class="row card" style="padding: 2rem;margin-bottom:1.5rem!important; justify-content: center;">
+  <div class="row card" id="print-section"
+    style="padding: 2rem;margin-bottom:1.5rem!important; justify-content: center; position: relative">
 
-    <div *ngFor="let question of inputAnswers" class="col-md-12 col-xs-12">
+    <!--<button id="print" type="print" style="position: absolute; top: 1rem; right:1rem;" mat-raised-button printSectionId="print-section" [useExistingCss]="true" ngxPrint>
 
-      <h2 style="margin-top:3rem; width: 100%; text-align: center">{{question.text}}</h2>
+      <img class="topBarImg" src="./assets/icons/ic_print.svg">
+
+    </button>-->
+
+    <div *ngFor="let question of inputAnswers" class="col-md-12 col-xs-12"
+      style="margin-top:2.5rem; padding-bottom:4.5rem; border-bottom: 1px dashed lightgray;">
+
+      <h2 style="margin-top:3rem; width: 100%; text-align: center;">
+
+        <span *ngIf="question.type == 'star'">⭐</span>
+        <span *ngIf="question.type == 'emoji'">😄</span>
+        <span *ngIf="question.type == 'slider'">➖</span>
+        <span *ngIf="question.type == 'options'">🔘 </span>
+        <span *ngIf="question.type == 'select'">🔽</span>
+        <span *ngIf="question.type == 'checkbox'">☑️</span>
+        <span *ngIf="question.type == 'text' || question.type == 'email' || question.type == 'number' 
+        || question.type == 'time' || question.type == 'date' || question.type == 'url'">📜</span>
+
+        {{question.text}}</h2>
 
       <div *ngIf="question.type == 'options' || question.type == 'star' || question.type == 'slider'
       || question.type == 'select' || question.type == 'emoji'" id="chart">
@@ -16,9 +40,17 @@
         <app-checkbox-chart [selectedQuestion]="question" [visualization]="'bar'"></app-checkbox-chart>
       </div>
 
-      <div *ngIf="question.type == 'text' || question.type == 'number' || question.type == 'date'
-      || question.type == 'time' || question.type == 'email'" id="chart">
-        <ul>
+      <div *ngIf="question.type == 'text'" id="chart" class="row" style="justify-content: center;">
+        <ul class="col-lg-4 col-md-5 col-xs-12" style="max-height: 250px; overflow-y: auto;">
+          <li *ngFor="let answer of question.answers">
+            {{answer.text}}
+          </li>
+        </ul>
+      </div>
+
+      <div *ngIf="question.type == 'number' || question.type == 'date'
+      || question.type == 'time' || question.type == 'email'" id="chart" class="row" style="justify-content: center;">
+        <ul class="col-lg-2 col-md-4 col-xs-12" style="max-height: 250px; overflow-y: auto;">
           <li *ngFor="let answer of question.answers">
             {{answer.text}}
           </li>

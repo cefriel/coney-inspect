@@ -33,6 +33,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatRadioModule } from '@angular/material/radio';
+import { NgxPrintModule } from 'ngx-print';
 
 import { ChartsModule } from 'ng2-charts';
 import { IntroSectionComponent } from './dashboard/sections/intro-section/intro-section.component';
@@ -82,7 +83,8 @@ import { CheckboxChartComponent } from './dashboard/charts/checkbox-chart/checkb
     MatIconModule,
     MatSlideToggleModule,
     MatRadioModule,
-    ChartsModule
+    ChartsModule,
+    NgxPrintModule
   ],
   providers: [
     BackendService,
