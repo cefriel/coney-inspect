@@ -19,6 +19,10 @@
      
     </div>
 
+    <div *ngIf="languages.length == 1"  class="col-lg-12 mol-md-12 col-xs-12 text-center">
+      <h3 style="color: gray!important"><i>Single language detected: {{languages[0].lang}}</i></h3>
+    </div>
+
     <div class="col-lg-12 mol-md-12 col-xs-12 text-center" style="font-weight: 500;">
       <hr>
       <mat-checkbox [(ngModel)]="showUnfinishedSelected" (ngModelChange)="languageSelected()"  [color]="'primary'"> Show unfinished surveys</mat-checkbox>
