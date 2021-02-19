@@ -8,6 +8,8 @@ export class LanguageSectionComponent implements OnInit, OnChanges {
   @Output() filterByLanguage = new EventEmitter<any>();
   @Input() inputAnswers: any;
   @Input() filtersCleared: any;
+  @Input() meta1: any;
+  @Input() meta2: any;
 
   selectedLanguage = "All languages";
   languages = [];

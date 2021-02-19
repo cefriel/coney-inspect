@@ -15,6 +15,8 @@ export class DataRetrievalService {
     err: "",
     success: false,
     success_order: false,
+    meta1: [],
+    meta2: [],
     parsedData: [],
     orderedQuestions: []
   };
@@ -120,6 +122,9 @@ export class DataRetrievalService {
         csvRecord.session = currentRecord[header.findIndex(x => x == "session")].trim().replace(/['"]+/g, '');
         csvRecord.totalDuration = currentRecord[header.findIndex(x => x == "totalDuration")].trim().replace(/['"]+/g, '');
         csvArr.push(csvRecord);
+
+        if(!this.data.meta1.includes(csvRecord.meta1)) { this.data.meta1.push(csvRecord.meta1) ;}
+        if(!this.data.meta2.includes(csvRecord.meta2)) { this.data.meta2.push(csvRecord.meta2) ;}
       }
     }
     return csvArr;

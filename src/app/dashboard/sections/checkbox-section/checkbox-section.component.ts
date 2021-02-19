@@ -33,6 +33,7 @@ export class CheckboxSectionComponent implements OnInit, OnChanges {
 
     this.noQuestions = false;
     this.selectedQuestion = this.inputAnswers[0];
+    this.totalAnswers = this.selectedQuestion.sessions.length;
   }
   
   async changeVisualization(type: any) {

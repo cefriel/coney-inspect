@@ -26,6 +26,8 @@ export class HomeComponent implements OnInit {
   conversations = [];
   projects = [];
   rawAnswers: any = [];
+  meta1: any = [];
+  meta2: any = [];
   orderedQuestions: any = [];
 
   interface = "search"; //displayed screen
@@ -138,6 +140,8 @@ export class HomeComponent implements OnInit {
         this.loading = false;
         this.rawAnswers = res.parsedData;
         this.orderedQuestions = res.orderedQuestions;
+        this.meta1 = res.meta1;
+        this.meta2 = res.meta2;
 
         if (res.success) {
           this.stopDataSubscription();

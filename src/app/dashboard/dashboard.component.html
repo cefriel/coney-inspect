@@ -1,27 +1,41 @@
 <div class="container" style="padding-top: 10rem;">
 
-    <div id="chartsView" class="row fw"  *ngIf="view=='charts' || view=='report'" [@chartsAnimation]>
+    <div id="chartsView" class="row fw" [@chartsAnimation]>
 
         <div class="col-xs-12 col-md-12 col-lg-12" *ngIf="parsedAnswers!=undefined">
             <app-language-section 
             [inputAnswers]="parsedAnswers.generic"
             [filtersCleared]="filtersCleared"
-            (filterByLanguage)="filterByLanguage($event)">
+            [meta1]="meta1"
+            [meta2]="meta2"
+            (filterByLanguage)="filterByLanguage($event)"
+            (filterByMeta)="filterByMeta(position, $event)">
             </app-language-section>
         </div>
     
     </div>
-
-    <div id="chartsView" class="row fw"  *ngIf="view=='charts' && !noData && this.rawAnswers.length != 0">
-
-        
+    <div id="chartsView" class="row fw"  *ngIf="(view=='charts' || view=='report') && !noData && this.rawAnswers.length != 0">
+  
+    
         <div class="col-xs-12 col-md-12 col-lg-12"  [@chartsAnimation]>
             <app-intro-section 
             [inputAnswers]="parsedAnswers.generic" 
             [chartTheme]="chartTheme">
             </app-intro-section>
         </div>
-       
+
+    </div>
+
+    <div id="chartsView" class="row fw"  *ngIf="view=='charts' && !noData && this.rawAnswers.length != 0">
+
+              
+        <div class="col-xs-12 col-md-12 col-lg-12" [@chartsAnimation]>
+            <h1 class="m-0" style="
+            padding-left: 2rem;
+            padding-top: 4rem;
+        ">Overview</h1>
+        </div>
+        
         <div class="col-xs-12 col-md-12 col-lg-6" [@chartsAnimation]>
             <app-multiple-section 
             [inputAnswers]="parsedAnswers.closed" 

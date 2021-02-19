@@ -1,8 +1,9 @@
-<div style="padding: 3rem 1.5rem 0 1.5rem; position: relative;">
+<div id="filters-tab" style="padding: 3rem 1.5rem 0 1.5rem; position: relative;">
 
   <div class="row card" id="card-intro-language"
     style="padding: 2rem 3rem; margin-bottom: 1.5rem!important;">
-    <h2 style="margin: 0;">Filters</h2>
+    <h2 style="margin: 0; 
+    margin-bottom: 1.5rem;">Filters</h2>
 
     <div *ngIf="languages!=undefined && languages.length > 1"  class="col-lg-12 mol-md-12 col-xs-12">
       <h3 class="fw text-center" style="color: gray!important;">Languages</h3>
@@ -20,12 +21,14 @@
     </div>
 
     <div *ngIf="languages.length == 1"  class="col-lg-12 mol-md-12 col-xs-12 text-center">
-      <h3 style="color: gray!important"><i>Single language detected: {{languages[0].lang}}</i></h3>
+      <h3 style="color: gray!important" class="m-0"><i>{{languages[0].lang}}</i></h3>
     </div>
+
+
 
     <div class="col-lg-12 mol-md-12 col-xs-12 text-center" style="font-weight: 500;">
       <hr>
-      <mat-checkbox [(ngModel)]="showUnfinishedSelected" (ngModelChange)="languageSelected()"  [color]="'primary'"> Show unfinished surveys</mat-checkbox>
+      <mat-checkbox [(ngModel)]="showUnfinishedSelected" (ngModelChange)="languageSelected()"  [color]="'primary'"> Unfinished</mat-checkbox>
     </div>
   </div>
 </div>

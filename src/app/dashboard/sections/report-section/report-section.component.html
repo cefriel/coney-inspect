@@ -41,7 +41,7 @@
       </div>
 
       <div *ngIf="question.type == 'text'" id="chart" class="row" style="justify-content: center;">
-        <ul class="col-lg-4 col-md-5 col-xs-12" style="max-height: 250px; overflow-y: auto;">
+        <ul class="col-lg-4 col-md-5 col-xs-12" style="max-height: 250px; overflow-y: auto; list-style: circle; padding-left: 2rem;">
           <li *ngFor="let answer of question.answers">
             {{answer.text}}
           </li>
@@ -50,7 +50,7 @@
 
       <div *ngIf="question.type == 'number' || question.type == 'date'
       || question.type == 'time' || question.type == 'email'" id="chart" class="row" style="justify-content: center;">
-        <ul class="col-lg-2 col-md-4 col-xs-12" style="max-height: 250px; overflow-y: auto;">
+        <ul class="col-lg-2 col-md-4 col-xs-12" style="max-height: 250px; overflow-y: auto; list-style: circle; padding-left: 2rem;">
           <li *ngFor="let answer of question.answers">
             {{answer.text}}
           </li>

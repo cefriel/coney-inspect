@@ -38,6 +38,8 @@ export class DashboardComponent implements OnInit {
   @Output() changeSurvey = new EventEmitter<any>();
   @Input() rawAnswers: any;
   @Input() orderedQuestions: any;
+  @Input() meta1: any;
+  @Input() meta2: any;
 
   view = "charts";
 
@@ -70,6 +72,18 @@ export class DashboardComponent implements OnInit {
     var langIndex = filters.languages.findIndex(x => x.checked == false);
     console.log("langIndex: "+langIndex)
     if(langIndex!=-1 || !filters.unfinished){
+      //filters applied
+      this.displayClearFilterButton = true;
+    } else {
+      this.displayClearFilterButton = false;
+    }
+    this.parseData(filters);
+  }
+
+  filterByMeta(position: number, filters:any){
+    var metaIndex = filters.meta.findIndex(x => x.checked == false);
+    console.log("langIndex: "+metaIndex)
+    if(metaIndex!=-1 || !filters.unfinished){
       //filters applied
       this.displayClearFilterButton = true;
     } else {
