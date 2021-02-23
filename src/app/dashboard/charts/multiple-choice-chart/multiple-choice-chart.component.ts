@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { ChartType, ChartOptions } from 'chart.js';
-import { SingleDataSet, Label, monkeyPatchChartJsLegend, monkeyPatchChartJsTooltip } from 'ng2-charts';
+import { SingleDataSet, Label, monkeyPatchChartJsLegend, monkeyPatchChartJsTooltip, Color } from 'ng2-charts';
 
 @Component({
   selector: 'app-multiple-choice-chart',
@@ -9,6 +9,7 @@ import { SingleDataSet, Label, monkeyPatchChartJsLegend, monkeyPatchChartJsToolt
 export class MultipleChoiceChartComponent implements OnInit, OnChanges {
   @Input() selectedQuestion:any;
   @Input() visualization:any;
+  @Input() chartTheme:any;
   @Input() legend:any;
   
   public barChartOptions: ChartOptions = {
@@ -37,6 +38,7 @@ export class MultipleChoiceChartComponent implements OnInit, OnChanges {
   public chartType: ChartType = 'pie';
   public chartLegend = true;
   public chartPlugins = [];
+
   
   noData = false;
 
@@ -51,7 +53,6 @@ export class MultipleChoiceChartComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(): void {
-    console.log(this.visualization);
     this.totalAnswers=0;
     this.totalValue=0;
     this.chartLegend = this.legend;

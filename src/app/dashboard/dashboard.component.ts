@@ -19,6 +19,18 @@ import { trigger, style, animate, transition } from '@angular/animations';
     ]
     ),
     trigger(
+      'fadeAnimation', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('200ms ease-in', style({ opacity: 1 }))
+      ]),
+      transition(':leave', [
+        style({ opacity: 1 }),
+        animate('100ms ease-out', style({ opacity: 0 }))
+      ])
+    ]
+    ),
+    trigger(
       'usersAnimation', [
       transition(':enter', [
         style({ transform: 'translateY(100%)', opacity: 1 }),
@@ -54,7 +66,7 @@ export class DashboardComponent implements OnInit {
   parsedAnswers: any;
   chartTheme: any[] = [ //chartBackground
     {
-      backgroundColor: ["#012060", "#572471", "#942575", "#c92f6c", "#f04d59", "#ff7940", "#ffaa20", "#ffdc05"]
+      backgroundColor: ["#012060", "#522470", "#8b2473", "#bc2a6c", "#e3425c", "#fc6846", "#ff932a", "#ffc107"]
     }];
 
   constructor(private dataParse: DataParseService) { }

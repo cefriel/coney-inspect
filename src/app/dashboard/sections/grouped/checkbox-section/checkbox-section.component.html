@@ -21,7 +21,10 @@
         <span *ngIf="!noData">Answers: {{totalAnswers}}</span></h3>
 
       <div id="chart" class="col-lg-12 col-md-12 col-xs-12">
-        <app-checkbox-chart [selectedQuestion]="selectedQuestion" [visualization]="visualization"></app-checkbox-chart>
+        <app-checkbox-chart 
+        [selectedQuestion]="selectedQuestion" 
+        [chartTheme]="chartTheme" 
+        [visualization]="visualization"></app-checkbox-chart>
       </div>
 
       

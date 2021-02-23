@@ -4,8 +4,8 @@ import { SingleDataSet, Label, monkeyPatchChartJsLegend, monkeyPatchChartJsToolt
 import { IntroSectionService } from 'src/app/services/utils/intro-section.service';
 
 @Component({
-  selector: 'app-intro-section',
-  templateUrl: './intro-section.component.html'
+  selector: 'app-overview-section',
+  templateUrl: './overview-section.component.html'
 })
 export class IntroSectionComponent implements OnInit, OnChanges {
   @Input() inputAnswers: any;

@@ -4,9 +4,12 @@ import { SearchConvService } from '../services/utils/search-conv.service';
 import { DataRetrievalService } from '../services/utils/data-retrieval.service';
 import { DownloadCSVDialogComponent } from '../dialog/download/download-csv.dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { ToastrService } from 'ngx-toastr';
+import { saveAs } from 'file-saver';
 import { environment } from 'src/environments/environment';
 import { trigger, style, animate, transition } from '@angular/animations';
 import { SearchDialogComponent } from '../dialog/search/search.dialog.component';
+import { BackendService } from '../services/backend.service';
 
 
 @Component({
@@ -34,7 +37,9 @@ export class HomeComponent implements OnInit {
 
   constructor(private dataRetrievalService: DataRetrievalService,
     private searchConvService: SearchConvService,
+    public backend: BackendService,
     public dialog: MatDialog,
+    private toastr: ToastrService,
     private router: Router, private route: ActivatedRoute) {
 
   }
@@ -170,7 +175,7 @@ export class HomeComponent implements OnInit {
     this.getData(sessionStorage.getItem("conv"), sessionStorage.getItem("title"));
   }
 
-  //utils
+  //data export
   exportData() {
     const dialogRef = this.dialog.open(DownloadCSVDialogComponent, {
       maxWidth: '80%',
@@ -183,13 +188,56 @@ export class HomeComponent implements OnInit {
         if (res.simplify) {
           //this.downloadData("csv", res.trim, res.anonymize, true);
         } else {
-          //this.downloadData("csv", res.trim, res.anonymize, false);
+          this.downloadData("csv", res.trim, res.anonymize, false);
         }
       }
     });
   }
 
+  //data download
+  downloadData(type: string, trim: boolean, anonymize: boolean, simplify: boolean) {
+
+    if(sessionStorage.getItem("conv") == null || sessionStorage.getItem("conv") == '' || sessionStorage.getItem("conv")==undefined){
+      return;
+    }
+
+    this.loading = true;
+    var strt = "";
+    var end = ".csv";
+    var reqType = "text/csv"
+    var endpoint = "/data/";
+
+    
+    endpoint += "getAnswersOfConversation";
+    strt = "res_csv_";
+    
+    endpoint += "?conversationId=" + sessionStorage.getItem("conv");
+    if (trim) {
+      endpoint += "&trim=true"
+    }
+
+    if (anonymize) {
+      endpoint += "&anonymize=true"
+    }
+
+    if(simplify){
+      endpoint+="&simplify=true";
+    }
+
+    this.backend.getRequest(endpoint).subscribe(res => {
+      this.loading = false;
+
+      const blob = new Blob([res], { type: reqType });
+
+      saveAs(blob, strt + sessionStorage.getItem("title") + end);
+    }, err => {
+      this.loading = false;
+      this.operationFeedbackMessage("error", "Unable to download requested file");
+    });
+
+  }
   
+  //utils methods
   navigateToHome() {
     if(environment.enterprise){
       var url = environment.baseUrl + "/home";
@@ -199,7 +247,23 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  
+  operationFeedbackMessage(type: string, msg: string) {
+    switch (type) {
+      case "success":
+        this.toastr.success(msg, '');
+        break;
+      case "info":
+        this.toastr.info(msg, '');
+        break;
+      case "warning":
+        this.toastr.warning(msg, '');
+        break;
+      case "error":
+        this.toastr.error(msg, '');
+        break;
+    }
+  }
+
   stopSearchSubscription(){
     this.convSearchSubscription.unsubscribe();
   }

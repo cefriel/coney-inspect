@@ -4,10 +4,10 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { TagsSectionComponent } from './dashboard/sections/tags-section/tags-section.component';
-import { MultipleSectionComponent } from './dashboard/sections/multiple-section/multiple-section.component';
-import { CheckboxSectionComponent } from './dashboard/sections/checkbox-section/checkbox-section.component';
-import { UsersSectionComponent } from './dashboard/sections/users-section/users-section.component';
+import { TagsSectionComponent } from './dashboard/sections/grouped/tags-section/tags-section.component';
+import { MultipleSectionComponent } from './dashboard/sections/grouped/multiple-section/multiple-section.component';
+import { CheckboxSectionComponent } from './dashboard/sections/grouped/checkbox-section/checkbox-section.component';
+import { UsersSectionComponent } from './dashboard/sections/per-user/users-section.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './auth/login/login.component';
@@ -36,14 +36,15 @@ import { MatRadioModule } from '@angular/material/radio';
 import { NgxPrintModule } from 'ngx-print';
 
 import { ChartsModule } from 'ng2-charts';
-import { IntroSectionComponent } from './dashboard/sections/intro-section/intro-section.component';
-import { OpenSectionComponent } from './dashboard/sections/open-section/open-section.component';
+import { IntroSectionComponent } from './dashboard/sections/overview/overview-section.component';
+import { OpenSectionComponent } from './dashboard/sections/grouped/open-section/open-section.component';
 import { DownloadCSVDialogComponent } from './dialog/download/download-csv.dialog.component';
-import { LanguageSectionComponent } from './dashboard/sections/language-section/language-section.component';
+import { LanguageSectionComponent } from './dashboard/sections/filters/filters-section.component';
 import { SearchDialogComponent } from './dialog/search/search.dialog.component';
-import { ReportSectionComponent } from './dashboard/sections/report-section/report-section.component';
+import { ReportSectionComponent } from './dashboard/sections/report/report-section.component';
 import { MultipleChoiceChartComponent } from './dashboard/charts/multiple-choice-chart/multiple-choice-chart.component';
 import { CheckboxChartComponent } from './dashboard/charts/checkbox-chart/checkbox-chart.component';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -84,7 +85,8 @@ import { CheckboxChartComponent } from './dashboard/charts/checkbox-chart/checkb
     MatSlideToggleModule,
     MatRadioModule,
     ChartsModule,
-    NgxPrintModule
+    NgxPrintModule,
+    ToastrModule.forRoot()
   ],
   providers: [
     BackendService,

@@ -1,11 +1,11 @@
 <h1 class="m-0" style="
     padding-left: 2rem;
-    padding-top: 4rem;
-">Report</h1>
+    padding-top: 4rem; 
+" [@chartsAnimation]>Report</h1>
 
 <div style="padding: 3rem 1.5rem 4rem 1.5rem; position: relative;">
 
-  <div class="row card" id="print-section"
+  <div class="row card" id="print-section" [@chartsAnimation]
     style="padding: 2rem;margin-bottom:1.5rem!important; justify-content: center; position: relative">
 
     <!--<button id="print" type="print" style="position: absolute; top: 1rem; right:1rem;" mat-raised-button printSectionId="print-section" [useExistingCss]="true" ngxPrint>
@@ -14,7 +14,7 @@
 
     </button>-->
 
-    <div *ngFor="let question of inputAnswers" class="col-md-12 col-xs-12"
+    <div *ngFor="let question of inputAnswers" class="col-md-12 col-xs-12" 
       style="margin-top:2.5rem; padding-bottom:4.5rem; border-bottom: 1px dashed lightgray;">
 
       <h2 style="margin-top:3rem; width: 100%; text-align: center;">
@@ -32,12 +32,12 @@
 
       <div *ngIf="question.type == 'options' || question.type == 'star' || question.type == 'slider'
       || question.type == 'select' || question.type == 'emoji'" id="chart">
-        <app-multiple-choice-chart [selectedQuestion]="question" [visualization]="'pie'" [legend]="legend">
+        <app-multiple-choice-chart [selectedQuestion]="question" [visualization]="'bar'" [legend]="legend" [chartTheme]="chartTheme">
         </app-multiple-choice-chart>
       </div>
 
       <div *ngIf="question.type == 'checkbox'" id="chart">
-        <app-checkbox-chart [selectedQuestion]="question" [visualization]="'bar'"></app-checkbox-chart>
+        <app-checkbox-chart [selectedQuestion]="question" [visualization]="'bar'" [chartTheme]="chartTheme"></app-checkbox-chart>
       </div>
 
       <div *ngIf="question.type == 'text'" id="chart" class="row" style="justify-content: center;">

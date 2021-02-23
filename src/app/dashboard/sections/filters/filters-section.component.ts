@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 
 @Component({
-  selector: 'app-language-section',
-  templateUrl: './language-section.component.html'
+  selector: 'app-filters-section',
+  templateUrl: './filters-section.component.html'
 })
 export class LanguageSectionComponent implements OnInit, OnChanges {
   @Output() filterByLanguage = new EventEmitter<any>();

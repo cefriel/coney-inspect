@@ -9,6 +9,7 @@ import { SingleDataSet, Label, monkeyPatchChartJsLegend, monkeyPatchChartJsToolt
 export class CheckboxChartComponent implements OnInit, OnChanges {
   @Input() selectedQuestion:any;
   @Input() visualization:any;
+  @Input() chartTheme:any;
 
 
   noData = false;
