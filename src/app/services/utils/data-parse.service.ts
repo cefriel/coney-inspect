@@ -405,7 +405,7 @@ export class DataParseService {
   getLanguageFromTag(tag: string) {
     let languages = [{ lang: "Afrikaans", tag: "af" }, { lang: "Albanian ", tag: "sp" }, { lang: "Arabic", tag: "ar" }, { lang: "Basque", tag: "eu" },
     { lang: "Byelorussian ", tag: "be" }, { lang: "български език", tag: "bg" }, { lang: "Català", tag: "va" }, { lang: "Hrvatski", tag: "hr" }, { lang: "Čeština", tag: "cs" },
-    { lang: "Dansk", tag: "da" }, { lang: "Nederlands", tag: "nl" }, { lang: "English", tag: "en" }, { lang: "Esperanto", tag: "eo" }, { lang: "Eesti", tag: "et" },
+    { lang: "Dansk", tag: "da" }, { lang: "Dutch", tag: "nl" }, { lang: "English", tag: "en" }, { lang: "Esperanto", tag: "eo" }, { lang: "Eesti", tag: "et" },
     { lang: "Suomi", tag: "fi" }, { lang: "Faronese", tag: "fo" }, { lang: "Français", tag: "fr" },
     { lang: "Galego", tag: "gl" }, { lang: "Deutsch", tag: "de" }, { lang: "Ελληνικά", tag: "el" }, { lang: "עברית", tag: "he" }, { lang: "Magyar", tag: "hu" },
     { lang: "Icelandic", tag: "is" }, { lang: "Italiano", tag: "it" }, { lang: "Irish", tag: "ga" }, { lang: "Japanese", tag: "ja" }, { lang: "Korean", tag: "ko" },
