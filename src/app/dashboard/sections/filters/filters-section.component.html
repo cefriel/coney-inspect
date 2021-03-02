@@ -1,58 +1,72 @@
-<div *ngIf="opened" id="filters-tab" style="padding: 3rem 1.5rem 0 1.5rem; position: relative;" [@filtersAnimation]>
-
-  <div class="row card" id="card-intro-language" style="padding: 2rem 3rem; margin-bottom: 1.5rem!important;">
-    <h2 style="margin: 0; width: 100; text-align: center;
-    margin-bottom: 1rem;">Filters</h2>
-
-    <div *ngIf="languages!=undefined && languages.length > 1" class="col-lg-12 mol-md-12 col-xs-12">
-      <h3 class="fw text-center" style="color: gray!important;">Languages</h3>
-      <ul style="list-style: none; text-align: center; padding-left: 0;">
-        <li *ngFor="let language of languages" style="display: inline-block; margin-left: 20px; margin-right: 20px;">
-          <mat-checkbox [(ngModel)]="language.checked" (ngModelChange)="filterSelected()" [color]="'primary'">
-            <h3 style="margin-bottom: 0px;">
-              <span class="language-amount">{{language.number}}</span>
-
-              {{language.lang}}</h3>
-          </mat-checkbox>
-        </li>
-      </ul>
+<div *ngIf="opened" id="filters-tab" [@filtersAnimation]>
+  <div class="container" id="filters-cont" style="padding-top: 2rem;">
+    <div class="row" style="    padding: 0px 1rem;">
+      <div class="col-md-8 col-xs-6">
+        <h2 style="margin: 0; width: 100; margin-bottom: 1rem;">Filters</h2>
+      </div>
+      <div class="col-md-4 col-xs-6" style="font-weight: 600; text-align: end;">
+        <mat-checkbox [(ngModel)]="showUnfinishedSelected" (ngModelChange)="filterSelected()" [color]="'primary'">
+          Unfinished</mat-checkbox>
+      </div>
     </div>
 
-    <div *ngIf="languages.length == 1" class="col-lg-12 col-md-12 col-xs-12 text-center">
-      <h3 style="color: gray!important" class="m-0"><i>{{languages[0].lang}}</i></h3>
-    </div>
 
-    <!--meta1-->
-    <div *ngIf="metadata.meta1!=undefined && metadata.meta1.length > 1" class="col-lg-12 col-md-6 col-xs-12">
-      <hr>
-      <h3 class="fw text-center" style="color: gray!important;">Metadata</h3>
-      <ul style="list-style: none; text-align: center; padding-left: 0;">
-        <li *ngFor="let meta1 of metadata.meta1" style="display: inline-block; margin-left: 10px; margin-right:10px;">
-          <mat-checkbox [(ngModel)]="meta1.checked" (ngModelChange)="filterSelected()" [color]="'primary'">
-            <h3 style="margin-bottom: 0px;">
-              {{meta1.meta}}</h3>
-          </mat-checkbox>
-        </li>
-      </ul>
-    </div>
+    <div class="row" id="card-intro-language" style="padding: 0rem 0rem 2rem 0rem; margin-bottom: 1.5rem!important; height: 24vh;">
 
-    <!--meta2-->
-    <div *ngIf="metadata.meta2!=undefined && metadata.meta2.length > 1" class="col-lg-12 col-md-6 col-xs-12">
-      <hr>
-      <ul style="list-style: none; text-align: center; padding-left: 0;">
-        <li *ngFor="let meta2 of metadata.meta2" style="display: inline-block; margin-left: 10px; margin-right:10px;">
-          <mat-checkbox [(ngModel)]="meta2.checked" (ngModelChange)="filterSelected()" [color]="'primary'">
-            <h3 style="margin-bottom: 0px;">
-              {{meta2.meta}}</h3>
-          </mat-checkbox>
-        </li>
-      </ul>
-    </div>
+      <!--language filter-->
+      <div class="col-md-4 col-xs-12  borderless-mob" style="border-right: 1px solid lightgray; padding: 0rem 1rem; height: 100%; max-height: 20vh;">
+        <h3 class="fw" style="color: gray!important; width: 100%; margin: 0;">Languages</h3>
+        <div *ngIf="languages!=undefined && languages.length > 1" class="fw">
+          <ul style="list-style: none; padding-left: 0;">
+            <li *ngFor="let language of languages"
+              style="margin-left: 20px; margin-right: 20px;">
+              <mat-checkbox [(ngModel)]="language.checked" (ngModelChange)="filterSelected()" [color]="'primary'">
+                <h3 style="margin-bottom: 0px;">
+                  <span class="language-amount">{{language.number}}</span>
+                  {{language.lang}}</h3>
+              </mat-checkbox>
+            </li>
+          </ul>
+        </div>
+        <div *ngIf="languages.length == 1" class="col-lg-12 col-md-12 col-xs-12">
+          <h3 class="m-0"><i>{{languages[0].lang}}</i></h3>
+        </div>
+      </div>
 
-    <div class="col-lg-12 mol-md-12 col-xs-12 text-center" style="font-weight: 500;">
-      <hr>
-      <mat-checkbox [(ngModel)]="showUnfinishedSelected" (ngModelChange)="filterSelected()" [color]="'primary'">
-        Unfinished</mat-checkbox>
+      <!--metadata filters-->
+      <div class="col-md-4 col-xs-12" style="padding: 0rem 1rem;">
+        <h3 class="fw" style="color: gray!important; margin: 0;">Metadata</h3>
+        <!--meta1-->
+        <div *ngIf="metadata.meta1!=undefined && metadata.meta1.length > 1" class="fw">
+          <ul class="borderless-mob" style="list-style: none; padding-left: 0; margin: 0; height: 19vh; overflow-y: auto; border-right: 1px solid lightgray;">
+            <li *ngFor="let meta1 of metadata.meta1"
+              style="margin-left: 10px; margin-right:10px;">
+              <mat-checkbox [(ngModel)]="meta1.checked" (ngModelChange)="filterSelected()" [color]="'primary'">
+                <h3 style="margin-bottom: 0px;">
+                  <span class="language-amount">{{meta1.count}}</span>
+                  {{meta1.meta}}</h3>
+              </mat-checkbox>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!--meta2-->
+      <div class="col-md-4 col-xs-12" style="padding-top: 16px; padding: 0rem 1rem;">
+        <div *ngIf="metadata.meta2!=undefined && metadata.meta2.length > 1" class="fw">
+          <ul style="list-style: none; padding-left: 0;  height: 19vh; overflow-y: auto;">
+            <li *ngFor="let meta2 of metadata.meta2"
+              style="margin-left: 10px; margin-right:10px;">
+              <mat-checkbox [(ngModel)]="meta2.checked" (ngModelChange)="filterSelected()" [color]="'primary'">
+                <h3 style="margin-bottom: 0px;">
+                  <span class="language-amount">{{meta2.count}}</span>
+                  {{meta2.meta}}</h3>
+              </mat-checkbox>
+            </li>
+          </ul>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>

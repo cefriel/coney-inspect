@@ -13,7 +13,7 @@ import { trigger, style, animate, transition } from '@angular/animations';
       ]),
       transition(':leave', [
         style({ transform: 'translateY(0)', opacity: 1 }),
-        animate('100ms ease-out', style({ opacity: 0 }))
+        animate('50ms ease-out', style({ opacity: 0 }))
       ])
     ]
     )]

@@ -2,8 +2,7 @@
 
   <!--Filters section-->
   <app-filters-section *ngIf="parsedAnswers!=undefined" [style.visibility]="!filtersOpen? 'hidden': 'visible'" [inputAnswers]="parsedAnswers.generic"
-    [filtersCleared]="filtersCleared" [meta1]="meta1" [meta2]="meta2" (filterByLanguage)="filterByLanguage($event)"
-    (filterByMeta)="filterByMeta(position, $event)">
+    [filtersCleared]="filtersCleared" [meta1]="meta1" [meta2]="meta2" (filterByLanguage)="filterByLanguage($event)">
   </app-filters-section>
 
 
@@ -107,7 +106,7 @@
 
     <li class="nav-item">
       <button [class.displayed]="filtersOpen" [disabled]="view=='users'" mat-button aria-label="Show filters"
-        (click)="showFilters()" title="Show filters">
+        (click)="showFilters()" [title]="view=='users' ? 'Filters disabled for this view': 'Show filters'">
         <mat-icon style="color: #4A5568; font-size: 20px">filter_alt</mat-icon>
       </button>
     </li>

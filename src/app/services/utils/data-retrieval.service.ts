@@ -21,6 +21,8 @@ export class DataRetrievalService {
     orderedQuestions: []
   };
 
+  sessionsTemp = [];
+
   public results$ = new BehaviorSubject<any>({});
 
   constructor(private backend: BackendService) { }
@@ -99,6 +101,9 @@ export class DataRetrievalService {
   //gets the rest of the data
   getDataRecordsArrayFromCSVFile(csvRecordsArray: any, header: any) {
     let csvArr = [];
+    this.data.meta1 = [];
+    this.data.meta2 = [];
+    this.sessionsTemp = [];
     for (let i = 1; i < csvRecordsArray.length; i++) {
 
       var currentRecord = (<string>csvRecordsArray[i]).split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
@@ -123,7 +128,10 @@ export class DataRetrievalService {
         csvRecord.totalDuration = currentRecord[header.findIndex(x => x == "totalDuration")].trim().replace(/['"]+/g, '');
         csvArr.push(csvRecord);
 
-        this.parseMetadata(csvRecord.meta1, csvRecord.meta2);
+        if(!this.sessionsTemp.includes(csvRecord.session)){
+          this.parseMetadata(csvRecord.meta1, csvRecord.meta2);
+          this.sessionsTemp.push(csvRecord.session);
+        }
         
       }
     }
@@ -135,16 +143,22 @@ export class DataRetrievalService {
     if(meta1!=undefined && meta1!="" && m1Index==-1) { 
       this.data.meta1.push({
         meta: meta1,
-        checked: true
+        checked: true,
+        count: 1
       }) ;
-    } 
+    } else if(meta1!=undefined && meta1!="" && m1Index!=-1) {
+      this.data.meta1[m1Index].count++;
+    }
 
     var m2Index = this.data.meta2.findIndex(x => x.meta == meta2);
     if(meta2!=undefined && meta2!="" && m2Index==-1) {
       this.data.meta2.push({
         meta: meta2,
-        checked: true
+        checked: true,
+        count: 1
       }) ;
+    } else if(meta2!=undefined && meta2!="" && m2Index!=-1) {
+      this.data.meta2[m2Index].count++;
     }
 
   }

@@ -188,7 +188,12 @@ export class DataParseService {
     //Question part
     var indexQuestion = this.closedQuestionsData.findIndex(obj => (obj.id == data.questionId));
     var indexOrder = this.orderedQuestions.findIndex(x => x.neo4jId == data.questionId);
-    var depth = this.orderedQuestions[indexOrder].depth;
+    
+    var depth = 999;
+    if(indexOrder!=-1){
+      depth = this.orderedQuestions[indexOrder].depth;
+    }
+    
     if (indexQuestion == -1) {
       var singleClosedQuestion = {
         id: data.questionId,
@@ -345,7 +350,11 @@ export class DataParseService {
     //Question part
     var indexQuestion = this.openQuestionsData.findIndex(obj => (obj.id == data.questionId));
     var indexOrder = this.orderedQuestions.findIndex(x => x.neo4jId == data.questionId);
-    var depth = this.orderedQuestions[indexOrder].depth;
+    var depth = 999;
+    if(indexOrder!=-1){
+      depth = this.orderedQuestions[indexOrder].depth;
+    }
+    
     
     if (indexQuestion == -1) {
       var singleOpenQuestion = {

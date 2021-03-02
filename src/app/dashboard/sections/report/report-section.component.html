@@ -32,7 +32,7 @@
 
       <div *ngIf="question.type == 'options' || question.type == 'star' || question.type == 'slider'
       || question.type == 'select' || question.type == 'emoji'" id="chart">
-        <app-multiple-choice-chart [selectedQuestion]="question" [visualization]="'bar'" [legend]="legend" [chartTheme]="chartTheme">
+        <app-multiple-choice-chart [selectedQuestion]="question" [visualization]="'bar'" [legend]="false" [chartTheme]="chartTheme">
         </app-multiple-choice-chart>
       </div>
 
