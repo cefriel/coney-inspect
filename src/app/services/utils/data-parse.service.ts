@@ -14,7 +14,8 @@ export class DataParseService {
     times: [],
     dates: [],
     durations: [],
-    languages: []
+    languages: [],
+    metadata: []
   }
 
   orderedQuestions = [];
@@ -41,7 +42,8 @@ export class DataParseService {
       times: [],
       dates: [],
       durations: [],
-      languages: []
+      languages: [],
+      metadata: [],
     }
 
     this.closedQuestionsData = [];
@@ -64,6 +66,18 @@ export class DataParseService {
           continue;
         }
       }
+
+      //metadata
+      if (filter != undefined && (filter.meta1 != undefined || filter.meta2 != undefined)) {
+        var meta1Index = filter.meta1.findIndex(x => (x.meta == data[i].meta1 || x.meta == data[i].meta2));
+        var meta2Index = filter.meta2.findIndex(x => (x.meta == data[i].meta2 || x.meta == data[i].meta2));
+
+        if ((meta1Index != -1 && !filter.meta1[meta1Index].checked) 
+         || (meta2Index != -1 && !filter.meta2[meta2Index].checked)) {
+          continue;
+        }
+      }
+      
 
       //unfinished filter
       if (filter != undefined && !filter.unfinished) {

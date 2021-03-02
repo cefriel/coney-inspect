@@ -123,11 +123,31 @@ export class DataRetrievalService {
         csvRecord.totalDuration = currentRecord[header.findIndex(x => x == "totalDuration")].trim().replace(/['"]+/g, '');
         csvArr.push(csvRecord);
 
-        if(!this.data.meta1.includes(csvRecord.meta1)) { this.data.meta1.push(csvRecord.meta1) ;}
-        if(!this.data.meta2.includes(csvRecord.meta2)) { this.data.meta2.push(csvRecord.meta2) ;}
+        this.parseMetadata(csvRecord.meta1, csvRecord.meta2);
+        
       }
     }
     return csvArr;
   }
+
+  parseMetadata(meta1, meta2){
+    var m1Index = this.data.meta1.findIndex(x => x.meta == meta1);
+    if(meta1!=undefined && meta1!="" && m1Index==-1) { 
+      this.data.meta1.push({
+        meta: meta1,
+        checked: true
+      }) ;
+    } 
+
+    var m2Index = this.data.meta2.findIndex(x => x.meta == meta2);
+    if(meta2!=undefined && meta2!="" && m2Index==-1) {
+      this.data.meta2.push({
+        meta: meta2,
+        checked: true
+      }) ;
+    }
+
+  }
+
 
 }

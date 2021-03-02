@@ -173,6 +173,29 @@ body { margin: 0;
     color: white;
 }
 
+/*filters*/
+#side-panel{
+    background: white;
+    box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 20%), 0 1px 5px 0 rgb(0 0 0 / 12%);
+    box-sizing:border-box;
+    position:absolute;
+    top:300px;
+    width:200px;
+    height:48px;
+    padding:0 20px;
+    margin:0;
+    cursor:pointer;
+    border-radius:4px 4px 0px 0px;
+    display:flex;
+    align-items:center;
+    justify-content:flex-start;
+    transform:rotate(-90deg);
+    transform-origin:bottom left;
+    color:white;
+    text-decoration:none;
+    z-index:9999;        
+}
+
 /*
 colors
 */
@@ -242,7 +265,7 @@ colors
 /*filters*/
 @media only screen and (min-width: 1400px){
     #filters-tab{
-            width: 210px;
+            width: 300px;
             position: fixed!important;
             top: 50%;
             transform: translate(0%, -50%);

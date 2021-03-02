@@ -63,6 +63,8 @@ export class DashboardComponent implements OnInit {
 
   displayingUnfinished = true;
 
+  filtersOpen = false;
+
   parsedAnswers: any;
   chartTheme: any[] = [ //chartBackground
     {
@@ -136,6 +138,10 @@ export class DashboardComponent implements OnInit {
         this.noSurvey = true;
       } 
     }
+  }
+
+  showFilters(){
+    this.filtersOpen = !this.filtersOpen;
   }
 
   refresh() {

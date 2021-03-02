@@ -147,7 +147,6 @@ export class HomeComponent implements OnInit {
         this.orderedQuestions = res.orderedQuestions;
         this.meta1 = res.meta1;
         this.meta2 = res.meta2;
-
         if (res.success) {
           this.stopDataSubscription();
         }

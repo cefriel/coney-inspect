@@ -1,13 +1,11 @@
 <div class="container" style="padding-top: 10rem;">
 
   <!--Filters section-->
-  <div id="chartsView" class="row fw" [@chartsAnimation]>
-    <div class="col-xs-12 col-md-12 col-lg-12" *ngIf="parsedAnswers!=undefined">
-      <app-filters-section [inputAnswers]="parsedAnswers.generic" [filtersCleared]="filtersCleared" [meta1]="meta1"
-        [meta2]="meta2" (filterByLanguage)="filterByLanguage($event)" (filterByMeta)="filterByMeta(position, $event)">
-      </app-filters-section>
-    </div>
-  </div>
+  <app-filters-section *ngIf="parsedAnswers!=undefined" [style.visibility]="!filtersOpen? 'hidden': 'visible'" [inputAnswers]="parsedAnswers.generic"
+    [filtersCleared]="filtersCleared" [meta1]="meta1" [meta2]="meta2" (filterByLanguage)="filterByLanguage($event)"
+    (filterByMeta)="filterByMeta(position, $event)">
+  </app-filters-section>
+
 
   <!--Overview (in summary e dashboard)-->
   <div id="chartsView" class="row fw"
@@ -44,17 +42,11 @@
     </div>
   </div>
 
-  <!--Users section-->
-  <div id="usersView" class="row fw" *ngIf="view=='users' && !noData">
-    <div class="col-xs-12 col-md-12 col-lg-12">
-      <app-users-section *ngIf="this.rawAnswers.length != 0" [inputAnswers]="parsedAnswers.users"></app-users-section>
-    </div>
-  </div>
-
   <!--Report section-->
-  <div id="reportView" class="row fw" *ngIf="view=='report' && !noData" >
+  <div id="reportView" class="row fw" *ngIf="view=='report' && !noData">
     <div class="col-xs-12 col-md-12 col-lg-12">
-      <app-report-section *ngIf="this.rawAnswers.length != 0" [chartTheme]="chartTheme" [inputAnswers]="parsedAnswers.all"></app-report-section>
+      <app-report-section *ngIf="this.rawAnswers.length != 0" [chartTheme]="chartTheme"
+        [inputAnswers]="parsedAnswers.all"></app-report-section>
     </div>
   </div>
 
@@ -75,6 +67,13 @@
     </div>
   </div>
 
+  <!--Users section-->
+  <div id="usersView" class="row fw" *ngIf="view=='users' && !noData">
+    <div class="col-xs-12 col-md-12 col-lg-12">
+      <app-users-section *ngIf="this.rawAnswers.length != 0" [inputAnswers]="parsedAnswers.users"></app-users-section>
+    </div>
+  </div>
+
 </div>
 
 
@@ -83,14 +82,14 @@
   <ul class="m-2 p-2" id="commandsUl">
 
     <li class="nav-item">
-      <button [class.displayed]="view == 'charts'" [disabled]="view=='charts'"  mat-button aria-label="Dashboard view"
+      <button [class.displayed]="view == 'charts'" [disabled]="view=='charts'" mat-button aria-label="Dashboard view"
         (click)="changeView('charts')" title="Dashboard view">
         <mat-icon style="color: #4A5568; font-size: 20px">grid_view</mat-icon>
       </button>
     </li>
     <li class="nav-item">
-      <button [class.displayed]="view == 'report'" [disabled]="view=='report'" mat-button aria-label="Report view" title="Report view"
-        (click)="changeView('report')">
+      <button [class.displayed]="view == 'report'" [disabled]="view=='report'" mat-button aria-label="Report view"
+        title="Report view" (click)="changeView('report')">
         <mat-icon style="color: #4A5568; font-size: 20px">dns</mat-icon>
       </button>
     </li>
@@ -100,8 +99,19 @@
         <mat-icon style="color: #4A5568; font-size: 20px">supervised_user_circle</mat-icon>
       </button>
     </li>
-    
-    
+
+
+    <li class="nav-item">
+      <hr>
+    </li>
+
+    <li class="nav-item">
+      <button [class.displayed]="filtersOpen" [disabled]="view=='users'" mat-button aria-label="Show filters"
+        (click)="showFilters()" title="Show filters">
+        <mat-icon style="color: #4A5568; font-size: 20px">filter_alt</mat-icon>
+      </button>
+    </li>
+
     <li class="nav-item">
       <hr>
     </li>

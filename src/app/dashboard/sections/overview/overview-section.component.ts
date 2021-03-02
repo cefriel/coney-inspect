@@ -24,6 +24,13 @@ export class IntroSectionComponent implements OnInit, OnChanges {
           }
         }
       ]
+    },
+    elements: 
+    { 
+        point: 
+        {
+            radius: 0
+        }
     }
   };
 
@@ -37,8 +44,8 @@ export class IntroSectionComponent implements OnInit, OnChanges {
   public durationChartLabels: Label[] = [];
   public chartColors: Color[] = [
     {
-      borderColor: 'black',
-      backgroundColor: 'rgba(255,0,0,0.3)',
+      borderColor: '#495568',
+      backgroundColor: '#495568',
     },
   ];
 
@@ -58,12 +65,7 @@ export class IntroSectionComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    this.chartColors = [
-      {
-        borderColor: this.chartTheme[0].backgroundColor[5],
-        backgroundColor: this.chartTheme[0].backgroundColor[6],
-      },
-    ];
+   
   }
 
   ngOnChanges(): void {
