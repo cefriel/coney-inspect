@@ -2,8 +2,8 @@
 
 @import url("styles-coney-theme.css");
 */
-@import url("./assets/font/font_stylesheet.css");
-@import url("./assets/css/bootstrap.min.css");
+@import url("./assets/fonts/font_stylesheet.css");
+@import url("./bootstrap.min.css");
 @import url("./styles-rules.css");
 
 /*Colors*/
@@ -199,36 +199,13 @@ body {
 
 /*filters*/
 #filters-cont {
-  padding-top: 2rem;
-  box-shadow: 0 0 10px 4px #00000024;
-  border-top-left-radius: 4px;
-  border-top-right-radius: 4px;
-  background: white;
-  height: 30vh;
+  
+}
+#filters-tab{
+  height: 100%;
+  overflow-y: auto;
 }
 
-
-#side-panel {
-  background: white;
-  box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 20%), 0 1px 5px 0 rgb(0 0 0 / 12%);
-  box-sizing: border-box;
-  position: absolute;
-  top: 300px;
-  width: 200px;
-  height: 48px;
-  padding: 0 20px;
-  margin: 0;
-  cursor: pointer;
-  border-radius: 4px 4px 0px 0px;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  transform: rotate(-90deg);
-  transform-origin: bottom left;
-  color: white;
-  text-decoration: none;
-  z-index: 9999;
-}
 
 /*
 colors
@@ -299,18 +276,6 @@ colors
     bottom: 0px;
   }
 
-  #filters-cont {
-    height: 75vh;
-  }
-
-  #filters-tab {
-    left: 2rem;
-    right: 2rem;
-    position: fixed !important;
-    bottom: 7rem;
-    z-index: 1;
-    padding: 0 3px 0 0 !important;
-  }
 
   .borderless-mob{
       border:none!important;
@@ -320,13 +285,5 @@ colors
 
 /*filters*/
 @media only screen and (min-width: 1400px) {
-  #filters-tab {
-    width: 100%;
-    left: 0;
-    right: 0;
-    position: fixed !important;
-    bottom: 0;
-    z-index: 1;
-    padding: 0 3px 0 0 !important;
-  }
+
 }

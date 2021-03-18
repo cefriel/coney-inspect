@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { DataParseService } from 'src/app/services/utils/data-parse.service';
 import { trigger, style, animate, transition } from '@angular/animations';
+import { SideSliderService } from '../services/utils/side-slider.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -71,7 +72,8 @@ export class DashboardComponent implements OnInit {
       backgroundColor: ["#012060", "#522470", "#8b2473", "#bc2a6c", "#e3425c", "#fc6846", "#ff932a", "#ffc107"]
     }];
 
-  constructor(private dataParse: DataParseService) { }
+  constructor(private dataParse: DataParseService,
+    private sideSliderService: SideSliderService) { }
 
   ngOnInit(): void {
   }
@@ -80,6 +82,10 @@ export class DashboardComponent implements OnInit {
     this.parseData(undefined);
   }
 
+  toggleSideSlider() {
+    console.log("toggle");
+    this.sideSliderService.setShowSlider(true);
+  }
 
   filterByLanguage(filters:any){
     
@@ -108,7 +114,7 @@ export class DashboardComponent implements OnInit {
     if (this.rawAnswers.length != 0) {
       console.log("Parsing data");
       this.parsedAnswers = this.dataParse.initialDataParse(this.rawAnswers, this.orderedQuestions, filter);
-      console.log(this.parsedAnswers);
+
       if (this.parsedAnswers.generic.totSessions == 0) {
         this.showCharts = false;
         this.noData = true;

@@ -1,9 +1,6 @@
 <div class="container" style="padding-top: 10rem;">
 
-  <!--Filters section-->
-  <app-filters-section *ngIf="parsedAnswers!=undefined" [style.visibility]="!filtersOpen? 'hidden': 'visible'" [inputAnswers]="parsedAnswers.generic"
-    [filtersCleared]="filtersCleared" [meta1]="meta1" [meta2]="meta2" (filterByLanguage)="filterByLanguage($event)">
-  </app-filters-section>
+  
 
 
   <!--Overview (in summary e dashboard)-->
@@ -106,7 +103,7 @@
 
     <li class="nav-item">
       <button [class.displayed]="filtersOpen" [disabled]="view=='users'" mat-button aria-label="Show filters"
-        (click)="showFilters()" [title]="view=='users' ? 'Filters disabled for this view': 'Show filters'">
+        (click)="toggleSideSlider()" [title]="view=='users' ? 'Filters disabled for this view': 'Show filters'">
         <mat-icon style="color: #4A5568; font-size: 20px">filter_alt</mat-icon>
       </button>
     </li>
@@ -135,19 +132,25 @@
 
 <div id="fab-container" *ngIf="view == 'charts' && displayClearFilterButton">
   <div class="row center">
-
     <div id="fab-inner">
-
-
       <div *ngIf="displayClearFilterButton" class="row fw">
         <h5 (click)="clearLanguageFilter()"
           style="margin:0px!important; cursor: pointer; color:gray!important; width: 100%; text-align: center;">
           <u>Clear filters</u>
         </h5>
       </div>
-
-
-
     </div>
   </div>
 </div>
+
+<!--filters slider-->
+<!--slider component + bridge -->
+<app-side-slider [sliderWidth]="400" [duration]="0.3">
+
+  <!--Filters section-->
+  <app-filters-section *ngIf="parsedAnswers!=undefined" [inputAnswers]="parsedAnswers.generic"
+    [filtersCleared]="filtersCleared" [meta1]="meta1" [meta2]="meta2" (filterByLanguage)="filterByLanguage($event)">
+  </app-filters-section>
+
+  <p  *ngIf="parsedAnswers==undefined">No answers to filter</p>
+</app-side-slider>

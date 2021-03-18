@@ -101,7 +101,9 @@ export class HomeComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(res => {
+      if(res!=undefined){
         this.selectedConversation(res);
+      }
     });
   }
 
@@ -160,7 +162,6 @@ export class HomeComponent implements OnInit {
   }
 
   changeSurvey() {
-
     if(this.conversations.length==0){
       this.getConversations();
     } else {
@@ -237,14 +238,7 @@ export class HomeComponent implements OnInit {
   }
   
   //utils methods
-  navigateToHome() {
-    if(environment.enterprise){
-      var url = environment.baseUrl + "/home";
-      window.location.href = url;
-    } else{
-      this.openSearchDialog();
-    }
-  }
+
 
   operationFeedbackMessage(type: string, msg: string) {
     switch (type) {

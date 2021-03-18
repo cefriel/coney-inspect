@@ -19,7 +19,6 @@ export class DataParseService {
   }
 
   orderedQuestions = [];
-
   closedQuestionsData = [];
   tagsQuestionsData = [];
   checkboxQuestionsData = [];
@@ -58,12 +57,14 @@ export class DataParseService {
 
 
     for (var i = 0; i < data.length; i++) {
-     
+     let skip = false;
+
       //language filter
       if (filter != undefined && filter.languages != undefined) {
         var langIndex = filter.languages.findIndex(x => x.tag == data[i].language);
         if (langIndex != -1 && !filter.languages[langIndex].checked) {
-          continue;
+          //continue;
+          skip = true;
         }
       }
 
@@ -74,7 +75,8 @@ export class DataParseService {
 
         if ((meta1Index != -1 && !filter.meta1[meta1Index].checked) 
          || (meta2Index != -1 && !filter.meta2[meta2Index].checked)) {
-          continue;
+          //continue;
+          skip = true;
         }
       }
       
@@ -82,16 +84,18 @@ export class DataParseService {
       //unfinished filter
       if (filter != undefined && !filter.unfinished) {
         if(data[i].totalDuration == "unfinished"){
-          continue;
+          skip = true;
+          //continue;
         }
       }
 
       //no preview
       if(data[i].user == "preview"){
-        continue;
+        //continue;
+        skip = true;
       }
 
-      if (data[i].session != "") {
+      if (data[i].session != "" && !skip) {
         this.manageGenericData(data[i]);
         this.manageUsersData(data[i]);
       }
@@ -101,7 +105,7 @@ export class DataParseService {
         //check the scale 
         var valuesIndex = data.findIndex(x => x.value != data[i].value && x.questionId == data[i].questionId);
         if(valuesIndex != -1 || data[i].value != 0){
-          this.manageTagsQuestionData(data[i]);
+          this.manageTagsQuestionData(data[i], skip);
         }
         
       }
@@ -109,17 +113,17 @@ export class DataParseService {
       if (data[i].questionType != "date" && data[i].questionType != "text" && data[i].questionType != "checkbox"
         && data[i].questionType != "url" && data[i].questionType != "email"
         && data[i].questionType != "time" && data[i].questionType != "number") {
-        this.manageClosedQuestionData(data[i]);
+        this.manageClosedQuestionData(data[i], skip);
       }
 
       if (data[i].questionType == "date" || data[i].questionType == "text"
         || data[i].questionType == "url" || data[i].questionType == "email"
         || data[i].questionType == "time" || data[i].questionType == "number") {
-        this.manageOpenQuestionData(data[i]);
+        this.manageOpenQuestionData(data[i], skip);
       }
 
       if (data[i].questionType == "checkbox") {
-        this.manageCheckboxQuestionData(data[i]);
+        this.manageCheckboxQuestionData(data[i], skip);
       }
 
     }
@@ -139,7 +143,7 @@ export class DataParseService {
 
   //parse intro section
   manageGenericData(data: any) {
-
+    
     var indexLanguage = this.genericData.languages.findIndex(obj => (obj.tag == data.language));
     if (indexLanguage == -1) {
       var langTmp: any = this.getLanguageFromTag(data.language);
@@ -184,7 +188,7 @@ export class DataParseService {
   }
 
   //parse multiple choice questions
-  manageClosedQuestionData(data: any) {
+  manageClosedQuestionData(data: any, skip: boolean) {
     //Question part
     var indexQuestion = this.closedQuestionsData.findIndex(obj => (obj.id == data.questionId));
     var indexOrder = this.orderedQuestions.findIndex(x => x.neo4jId == data.questionId);
@@ -209,7 +213,7 @@ export class DataParseService {
 
     //ANSWER part
     var answered = 0;
-    if (data.session != "") { answered++; }
+    if (data.session != "" && !skip) { answered++; }
 
     var indexAnswer = this.closedQuestionsData[indexQuestion].answers.findIndex(obj => (obj.order == data.order));
     var textToDisplay = data.option;
@@ -230,7 +234,7 @@ export class DataParseService {
   }
 
   //parse multiple choice questions
-  manageTagsQuestionData(data: any) {
+  manageTagsQuestionData(data: any, skip:boolean) {
 
     //Tags part
     var tagIndex = this.tagsQuestionsData.findIndex(x => x.tag == data.tag);
@@ -272,7 +276,7 @@ export class DataParseService {
 
     //ANSWER part
     var answered = 0;
-    if (data.session != "") { answered++; }
+    if (data.session != "" && !skip) { answered++; }
 
     var indexAnswer = this.tagsQuestionsData[tagIndex].answers.findIndex(obj => (obj.value == data.value));
 
@@ -290,7 +294,7 @@ export class DataParseService {
   }
 
   //parse checkboxes questions
-  manageCheckboxQuestionData(data: any) {
+  manageCheckboxQuestionData(data: any, skip: boolean) {
 
     //Question part
     var indexQuestion = this.checkboxQuestionsData.findIndex(obj => (obj.id == data.questionId));
@@ -319,7 +323,7 @@ export class DataParseService {
 
     //ANSWER part
     var answered = 0;
-    if (data.session != "") { answered++; }
+    if (data.session != "" && !skip) { answered++; }
     var indexAnswer = this.checkboxQuestionsData[indexQuestion].answers.findIndex(obj => (obj.text == data.option));
 
 
@@ -342,7 +346,7 @@ export class DataParseService {
 
   }
 
-  manageOpenQuestionData(data: any) {
+  manageOpenQuestionData(data: any, skip: boolean) {
     if (data.user == "") {
       return;
     }
@@ -369,12 +373,14 @@ export class DataParseService {
       indexQuestion = this.openQuestionsData.length - 1;
     }
 
+    if(skip){return;}
 
     //ANSWER part
     var openAnswer = {
       text: data.freeAnswer,
       language: this.getLanguageFromTag(data.language).lang
     }
+    
     this.openQuestionsData[indexQuestion].answers.push(openAnswer);
   }
 

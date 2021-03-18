@@ -64,7 +64,29 @@
     background: white;
     padding: 1rem;
     border-radius: 4px;
-    box-shadow: 0px 0px 6px 2px #ccc;
+    box-shadow: 0px 0px 6px 2px #0000001c;
+}
+
+/**** scrollbar ****/
+::-webkit-scrollbar {
+    width: 8px;
+}
+ 
+/* Track */
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.1); 
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    background: rgb(180, 180, 180); 
+}
+::-webkit-scrollbar-thumb:window-inactive {
+	background: rgba(236, 236, 236, 1); 
 }
 
 /*margins and paddings*/

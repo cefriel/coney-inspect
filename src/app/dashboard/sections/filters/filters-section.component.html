@@ -1,10 +1,10 @@
 <div *ngIf="opened" id="filters-tab" [@filtersAnimation]>
-  <div class="container" id="filters-cont" style="padding-top: 2rem;">
+  <div id="filters-cont" style="padding-top: 0rem;">
     <div class="row" style="    padding: 0px 1rem;">
-      <div class="col-md-8 col-xs-6">
-        <h2 style="margin: 0; width: 100; margin-bottom: 1rem;">Filters</h2>
+      <div class="col-md-6 col-xs-6">
+        <h2 style="margin: 0; width: 100; margin-bottom: 2rem;">Filters</h2>
       </div>
-      <div class="col-md-4 col-xs-6" style="font-weight: 600; text-align: end;">
+      <div class="col-md-12 col-xs-12" style="font-weight: 600; text-align: start; margin-bottom: 1rem">
         <mat-checkbox [(ngModel)]="showUnfinishedSelected" (ngModelChange)="filterSelected()" [color]="'primary'">
           Unfinished</mat-checkbox>
       </div>
@@ -14,7 +14,7 @@
     <div class="row" id="card-intro-language" style="padding: 0rem 0rem 2rem 0rem; margin-bottom: 1.5rem!important; height: 24vh;">
 
       <!--language filter-->
-      <div class="col-md-4 col-xs-12  borderless-mob" style="border-right: 1px solid lightgray; padding: 0rem 1rem; height: 100%; max-height: 20vh;">
+      <div class="col-md-12 col-xs-12  borderless-mob" style=" padding: 0rem 1rem; height: 100%; max-height: 20vh;">
         <h3 class="fw" style="color: gray!important; width: 100%; margin: 0;">Languages</h3>
         <div *ngIf="languages!=undefined && languages.length > 1" class="fw">
           <ul style="list-style: none; padding-left: 0;">
@@ -34,11 +34,11 @@
       </div>
 
       <!--metadata filters-->
-      <div class="col-md-4 col-xs-12" style="padding: 0rem 1rem;">
+      <div class="col-md-12 col-xs-12" style="padding: 0rem 1rem;">
         <h3 class="fw" style="color: gray!important; margin: 0;">Metadata</h3>
         <!--meta1-->
         <div *ngIf="metadata.meta1!=undefined && metadata.meta1.length > 1" class="fw">
-          <ul class="borderless-mob" style="list-style: none; padding-left: 0; margin: 0; height: 19vh; overflow-y: auto; border-right: 1px solid lightgray;">
+          <ul class="borderless-mob" style="list-style: none; padding-left: 0; margin: 0; height: 19vh; overflow-y: auto; ">
             <li *ngFor="let meta1 of metadata.meta1"
               style="margin-left: 10px; margin-right:10px;">
               <mat-checkbox [(ngModel)]="meta1.checked" (ngModelChange)="filterSelected()" [color]="'primary'">
@@ -52,7 +52,7 @@
       </div>
 
       <!--meta2-->
-      <div class="col-md-4 col-xs-12" style="padding-top: 16px; padding: 0rem 1rem;">
+      <div class="col-md-12 col-xs-12" style="padding-top: 16px; padding: 0rem 1rem;">
         <div *ngIf="metadata.meta2!=undefined && metadata.meta2.length > 1" class="fw">
           <ul style="list-style: none; padding-left: 0;  height: 19vh; overflow-y: auto;">
             <li *ngFor="let meta2 of metadata.meta2"

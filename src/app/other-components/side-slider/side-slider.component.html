@@ -1,0 +1,28 @@
+<div class="side-slider-bar"
+    [ngClass]="{ 'side-slider-bar-collapsed': !(showSideSlider | async) }">
+    
+    <!-- overlay -->
+    <div class="side-slider-bar-overlay" 
+    [ngStyle]="{ 'transition': 'background-color ' + duration + 's, visibility ' + duration + 's' }"
+    [ngClass]="{ 'side-slider-bar-overlay-collapsed': !(showSideSlider | async) }"
+        (click)="onSidebarClose()">
+    </div>
+    
+    <!-- side bar-->
+    <div class="side-slider-bar-menu-container" 
+    [ngStyle]="getSideSliderBarStyle((showSideSlider | async))">
+        
+        
+
+        <!-- side bar content -->
+        <section class="side-slider-bar-content-container">
+
+            <!-- close button -->
+            <button mat-button (click)="onSidebarClose()" 
+            id="close-slider-btn"
+            title="Close"><img src="./assets/icons/ic_close.svg"></button>
+
+           <ng-content></ng-content>
+        </section>
+    </div>
+</div>

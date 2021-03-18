@@ -45,6 +45,9 @@ import { ReportSectionComponent } from './dashboard/sections/report/report-secti
 import { MultipleChoiceChartComponent } from './dashboard/charts/multiple-choice-chart/multiple-choice-chart.component';
 import { CheckboxChartComponent } from './dashboard/charts/checkbox-chart/checkbox-chart.component';
 import { ToastrModule } from 'ngx-toastr';
+import { SideSliderComponent } from './other-components/side-slider/side-slider.component';
+import { NavbarComponent } from './other-components/navbar/navbar.component';
+import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
 
 @NgModule({
   declarations: [
@@ -64,7 +67,10 @@ import { ToastrModule } from 'ngx-toastr';
     SearchDialogComponent,
     ReportSectionComponent,
     MultipleChoiceChartComponent,
-    CheckboxChartComponent
+    CheckboxChartComponent,
+    SideSliderComponent,
+    NavbarComponent,
+    LoadingSpinnerComponent
   ],
   imports: [
     BrowserModule,
