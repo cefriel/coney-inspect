@@ -1,0 +1,16 @@
+<mat-toolbar id="navbar">
+    <img class="nav-logo" (click)="navigateToHome()" src="./assets/icons/ic_inspect.png">
+    <span>{{title}}</span>
+    <span class="spacer"></span>
+  
+    <button mat-icon-button [matMenuTriggerFor]="menu" class="nav-icon" aria-label="Options" title="Options">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item [routerLink]="[ '/logout' ]">
+        <mat-icon class="material-icons-outlined">logout</mat-icon>
+        <span>Logout</span>
+      </button>
+    </mat-menu>
+</mat-toolbar>
+  

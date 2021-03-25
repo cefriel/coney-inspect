@@ -15,7 +15,7 @@ import { BackendService } from '../services/backend.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css'],
+  styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
   title = 'Coney Inspect';
@@ -25,6 +25,8 @@ export class HomeComponent implements OnInit {
   enterprise = true;
   dataRetrievalSubscription: any;
   convSearchSubscription: any;
+
+  conversationAccessLevel: any;
 
   conversations = [];
   projects = [];
@@ -39,8 +41,7 @@ export class HomeComponent implements OnInit {
     private searchConvService: SearchConvService,
     public backend: BackendService,
     public dialog: MatDialog,
-    private toastr: ToastrService,
-    private router: Router, private route: ActivatedRoute) {
+    private toastr: ToastrService) {
 
   }
 
@@ -88,7 +89,6 @@ export class HomeComponent implements OnInit {
     )
   }
 
-
   openSearchDialog(){
     
     const dialogRef = this.dialog.open(SearchDialogComponent, {
@@ -121,6 +121,8 @@ export class HomeComponent implements OnInit {
     this.loading = true;
     sessionStorage.setItem("conv", event.conversationId);
     sessionStorage.setItem("title", event.conversationTitle);
+
+    this.conversationAccessLevel = event.accessLevel;
     
     this.title = event.conversationTitle;
     this.getData(event.conversationId,event.conversationTitle);
@@ -133,7 +135,6 @@ export class HomeComponent implements OnInit {
     sessionStorage.removeItem("title");
     this.rawAnswers = [];
   }
-
 
   getData(conversationId, conversationTitle) {
     this.loading = true;

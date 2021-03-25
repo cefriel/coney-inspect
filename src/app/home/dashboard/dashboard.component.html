@@ -1,0 +1,156 @@
+<div class="container" style="padding-top: 10rem;">
+
+  
+
+
+  <!--Overview (in summary e dashboard)-->
+  <div id="chartsView" class="row fw"
+    *ngIf="(view=='charts' || view=='report') && !noData && this.rawAnswers.length != 0">
+    <div class="col-xs-12 col-md-12 col-lg-12" [@fadeAnimation]>
+      <app-overview-section [inputAnswers]="parsedAnswers.generic" [chartTheme]="chartTheme">
+      </app-overview-section>
+    </div>
+  </div>
+
+  <!--Grouped section-->
+  <div id="chartsView" class="row fw" *ngIf="view=='charts' && !noData && this.rawAnswers.length != 0">
+    <div class="col-xs-12 col-md-12 col-lg-12" [@chartsAnimation]>
+      <h1 class="m-0" style="padding-left: 2rem; padding-top: 4rem;">Dashboard</h1>
+    </div>
+
+    <div class="col-xs-12 col-md-12 col-lg-6" [@chartsAnimation]>
+      <app-multiple-section [inputAnswers]="parsedAnswers.closed" [chartTheme]="chartTheme">
+      </app-multiple-section>
+    </div>
+    <div class="col-xs-12 col-md-12 col-lg-6" [@chartsAnimation]>
+      <app-checkbox-section [inputAnswers]="parsedAnswers.checkbox" [chartTheme]="chartTheme">
+      </app-checkbox-section>
+    </div>
+
+    <div class="col-xs-12 col-md-12 col-lg-6" [@chartsAnimation]>
+      <app-tags-section [inputAnswers]="parsedAnswers.tags" [chartTheme]="chartTheme">
+      </app-tags-section>
+    </div>
+
+    <div class="col-xs-12 col-md-12 col-lg-6" [@chartsAnimation]>
+      <app-open-section [inputAnswers]="parsedAnswers.open">
+      </app-open-section>
+    </div>
+  </div>
+
+  <!--Report section-->
+  <div id="reportView" class="row fw" *ngIf="view=='report' && !noData">
+    <div class="col-xs-12 col-md-12 col-lg-12">
+      <app-report-section *ngIf="this.rawAnswers.length != 0" [chartTheme]="chartTheme"
+        [inputAnswers]="parsedAnswers.all"></app-report-section>
+    </div>
+  </div>
+
+  <!--No-data section-->
+  <div id="noDataView" class="row fw" *ngIf="noData" style="padding-top: 25vh;">
+    <div class="col-xs-12 col-md-12 col-lg-12 text-center">
+      <h3 *ngIf="!noSurvey && !displayClearFilterButton">No answers recorded for this survey yet</h3>
+      <h3 *ngIf="noSurvey">No survey selected</h3>
+      <h3 *ngIf="displayClearFilterButton">No results match the chosen criteria</h3>
+    </div>
+    <div class="col-xs-12 col-md-12 col-lg-12 text-center">
+      <button mat-raised-button color="primary" *ngIf="!noSurvey && !displayClearFilterButton"
+        (click)="backToSearch()">Change Survey</button>
+      <button mat-raised-button color="primary" *ngIf="noSurvey" (click)="backToSearch()">Choose Survey</button>
+
+      <button mat-raised-button color="primary" *ngIf="displayClearFilterButton" (click)="clearLanguageFilter()">Clear
+        filters</button>
+    </div>
+  </div>
+
+  <!--Users section-->
+  <div id="usersView" class="row fw" *ngIf="view=='users' && !noData">
+    <div class="col-xs-12 col-md-12 col-lg-12">
+      <app-users-section *ngIf="this.rawAnswers.length != 0" [inputAnswers]="parsedAnswers.users"></app-users-section>
+    </div>
+  </div>
+
+</div>
+
+
+<!--buttons-->
+<div id="commands-container">
+  <ul class="m-2 p-2" id="commandsUl">
+
+    <li class="nav-item">
+      <button [class.displayed]="view == 'charts'" [disabled]="view=='charts'" mat-button aria-label="Dashboard view"
+        (click)="changeView('charts')" title="Dashboard view">
+        <mat-icon style="color: #4A5568; font-size: 20px" class="material-icons-outlined">grid_view</mat-icon>
+      </button>
+    </li>
+    <li class="nav-item">
+      <button [class.displayed]="view == 'report'" [disabled]="view=='report'" mat-button aria-label="Report view"
+        title="Report view" (click)="changeView('report')">
+        <mat-icon style="color: #4A5568; font-size: 20px" class="material-icons-outlined">dns</mat-icon>
+      </button>
+    </li>
+    <li class="nav-item">
+      <button [class.displayed]="view == 'users'" [disabled]="view=='users'" mat-button aria-label="Users view"
+        (click)="changeView('users')" title="Users view">
+        <mat-icon style="color: #4A5568; font-size: 20px" class="material-icons-outlined">supervised_user_circle</mat-icon>
+      </button>
+    </li>
+
+
+    <li class="nav-item">
+      <hr>
+    </li>
+
+    <li class="nav-item">
+      <button [class.displayed]="filtersOpen" [disabled]="view=='users'" mat-button aria-label="Show filters"
+        (click)="toggleSideSlider()" [title]="view=='users' ? 'Filters disabled for this view': 'Show filters'">
+        <mat-icon style="color: #4A5568; font-size: 20px" class="material-icons-outlined">filter_alt</mat-icon>
+      </button>
+    </li>
+
+    <li class="nav-item">
+      <hr>
+    </li>
+
+    <li class="nav-item">
+      <button mat-button aria-label="Change survey" title="Change survey" (click)="backToSearch()">
+        <mat-icon style="color: #4A5568; font-size: 20px" class="material-icons-outlined">topic</mat-icon>
+      </button>
+    </li>
+    <li class="nav-item">
+      <button mat-button aria-label="Refresh data" title="Refresh data" (click)="refresh()">
+        <mat-icon style="color: #4A5568; font-size: 20px" class="material-icons-outlined">cached</mat-icon>
+      </button>
+    </li>
+    <li class="nav-item">
+      <button mat-button aria-label="Export data" title="Export data" (click)="export()">
+        <mat-icon style="color: #4A5568; font-size: 20px" class="material-icons-outlined">get_app</mat-icon>
+      </button>
+    </li>
+  </ul>
+</div>
+
+<div id="fab-container" *ngIf="view == 'charts' && displayClearFilterButton">
+  <div class="row center">
+    <div id="fab-inner">
+      <div *ngIf="displayClearFilterButton" class="row fw">
+        <h5 (click)="clearLanguageFilter()"
+          style="margin:0px!important; cursor: pointer; color:gray!important; width: 100%; text-align: center;">
+          <u>Clear filters</u>
+        </h5>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--filters slider-->
+<!--slider component + bridge -->
+<app-side-slider [sliderWidth]="400" [duration]="0.3">
+
+  <!--Filters section-->
+  <app-filters-section *ngIf="parsedAnswers!=undefined" [inputAnswers]="parsedAnswers.generic"
+    [filtersCleared]="filtersCleared" [meta1]="meta1" [meta2]="meta2" (filterByLanguage)="filterByLanguage($event)">
+  </app-filters-section>
+
+  <p  *ngIf="parsedAnswers==undefined">No answers to filter</p>
+</app-side-slider>

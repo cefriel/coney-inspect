@@ -16,6 +16,8 @@ export class SearchDialogComponent {
     selectedStatus = "all";
     selectedProject = "all";
 
+    filtersOpened = false;
+    
     conversationsFound = true;
 
     initialConversations = [];
@@ -34,6 +36,10 @@ export class SearchDialogComponent {
     conversationSelected(conversation) {
         this.dialogRef.close(conversation);
     }
+
+    toggleFilters(){
+        this.filtersOpened = !this.filtersOpened;
+      }
 
     //ui update
     selectionChanged() {

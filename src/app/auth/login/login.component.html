@@ -1,37 +1,45 @@
-<div class="full">
-  <div class="row fh vertical center">
-    <div class="row fw center ">
-      <div class="card" style="padding: 2em; 
-      margin-top: -20%;">
+<div class="full" (keyup.enter)="checkLogin()">
+  <mat-card class="card">
 
-        <div class="fw center text-center">
-          <img src="./assets/icons/ic_inspect.png" style="height: 100px;">
-          <h2 style="width: 100%; font-weight: 500;">Coney Inspect</h2>
-        </div>
+    <img mat-card-image id="coney-logo" src="./assets/icons/ic_inspect.png" alt="Coney">
 
-        <div class="row fw center">
-          <p class="fw" style="color: #c72828" *ngIf="invalidLogin">Wrong credentials</p>
+    <mat-card-content>
+
+      <h2>Coney</h2>
+      
+      <h3 style="color: red; margin-bottom: 20px!important" *ngIf="invalidLogin">{{error}}</h3>
+      <mat-form-field appearance="outline">
+        <mat-label>Username</mat-label>
+        <input matInput placeholder="" [(ngModel)]="username">
+        <mat-icon class="material-icons-outlined" matSuffix>admin_panel_settings</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Password</mat-label>
+        <input matInput type="password" placeholder="" [(ngModel)]="password">
+        <mat-icon class="material-icons-outlined" matSuffix>password</mat-icon>
+      </mat-form-field>
+
+    </mat-card-content>
+
+    <mat-card-actions>
+        <div class="bottom-row">
+            <mat-progress-spinner 
+            *ngIf="isLogging" 
+            mode="indeterminate"
+            diameter="40"
+            strokeWidth="5"></mat-progress-spinner>
+
+            <button 
+            *ngIf="!isLogging" 
+            mat-raised-button 
+            color="primary" 
+            (click)=checkLogin()
+            type="submit" value="Submit">Login</button>
         </div>
-        
-        <div class="form-group justify-content-center">
-          <form class="row">
-            <div class="fw center text-center">
-              <mat-form-field>
-                <input matInput type="text" placeholder="username" name="username" [(ngModel)]="username">
-              </mat-form-field>
-              <br>
-              <mat-form-field>
-                <input matInput type="password" placeholder="password" name="password" [(ngModel)]="password">
-              </mat-form-field>
-              <br>
-              <mat-progress-bar *ngIf="isLogging" style="width:100%" mode="indeterminate"></mat-progress-bar>
-              <!-- Loading spinner -->
-              <button mat-raised-button color="primary" *ngIf="!isLogging" (click)=checkLogin() class="mt-4"> Login
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
+     
+
+      
+    </mat-card-actions>
+  </mat-card>
 </div>

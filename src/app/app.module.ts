@@ -4,11 +4,11 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { TagsSectionComponent } from './dashboard/sections/grouped/tags-section/tags-section.component';
-import { MultipleSectionComponent } from './dashboard/sections/grouped/multiple-section/multiple-section.component';
-import { CheckboxSectionComponent } from './dashboard/sections/grouped/checkbox-section/checkbox-section.component';
-import { UsersSectionComponent } from './dashboard/sections/per-user/users-section.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
+import { TagsSectionComponent } from './home/dashboard/sections/grouped/tags-section/tags-section.component';
+import { MultipleSectionComponent } from './home/dashboard/sections/grouped/multiple-section/multiple-section.component';
+import { CheckboxSectionComponent } from './home/dashboard/sections/grouped/checkbox-section/checkbox-section.component';
+import { UsersSectionComponent } from './home/dashboard/sections/per-user/users-section.component';
+import { DashboardComponent } from './home/dashboard/dashboard.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './auth/login/login.component';
 import { LogoutComponent } from './auth/logout/logout.component';
@@ -32,21 +32,24 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatCardModule } from '@angular/material/card';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatMenuModule } from '@angular/material/menu';
 import { NgxPrintModule } from 'ngx-print';
 
 import { ChartsModule } from 'ng2-charts';
-import { IntroSectionComponent } from './dashboard/sections/overview/overview-section.component';
-import { OpenSectionComponent } from './dashboard/sections/grouped/open-section/open-section.component';
+import { IntroSectionComponent } from './home/dashboard/sections/overview/overview-section.component';
+import { OpenSectionComponent } from './home/dashboard/sections/grouped/open-section/open-section.component';
 import { DownloadCSVDialogComponent } from './dialog/download/download-csv.dialog.component';
-import { LanguageSectionComponent } from './dashboard/sections/filters/filters-section.component';
+import { LanguageSectionComponent } from './home/dashboard/sections/filters/filters-section.component';
 import { SearchDialogComponent } from './dialog/search/search.dialog.component';
-import { ReportSectionComponent } from './dashboard/sections/report/report-section.component';
-import { MultipleChoiceChartComponent } from './dashboard/charts/multiple-choice-chart/multiple-choice-chart.component';
-import { CheckboxChartComponent } from './dashboard/charts/checkbox-chart/checkbox-chart.component';
+import { ReportSectionComponent } from './home/dashboard/sections/report/report-section.component';
+import { MultipleChoiceChartComponent } from './home/dashboard/charts/multiple-choice-chart/multiple-choice-chart.component';
+import { CheckboxChartComponent } from './home/dashboard/charts/checkbox-chart/checkbox-chart.component';
 import { ToastrModule } from 'ngx-toastr';
 import { SideSliderComponent } from './other-components/side-slider/side-slider.component';
-import { NavbarComponent } from './other-components/navbar/navbar.component';
+import { NavbarComponent } from './home/navbar/navbar.component';
 import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
 
 @NgModule({
@@ -79,7 +82,10 @@ import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.compo
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    MatButtonModule,
+    MatButtonModule,    
+    MatToolbarModule,
+    MatCardModule,
+    MatMenuModule,
     MatProgressBarModule,
     MatDialogModule,
     MatChipsModule,
