@@ -72,7 +72,7 @@ export class TagsSectionComponent implements OnInit {
     this.chartData = [];
     this.selectedTag.answers.sort(function (a, b) { return a.value - b.value });
 
-    for (var i = 0; i < this.selectedTag.answers.length; i++) {
+    for (let i = 0; i < this.selectedTag.answers.length; i++) {
       this.chartLabels.push(this.selectedTag.answers[i].value);
       this.chartData.push(this.selectedTag.answers[i].totalAnswers);
       this.totalAnswers+=this.selectedTag.answers[i].totalAnswers;
@@ -92,14 +92,14 @@ export class TagsSectionComponent implements OnInit {
   }
 
   checkScale(){
-    var min = 0; var max = 0;
+    let min = 0; let max = 0;
     this.scaleCorrect = true;
     if( this.selectedTag.questions[0]!=undefined){
       min = this.selectedTag.questions[0].min;
       max = this.selectedTag.questions[0].max;
     }
 
-    for (var i = 0; i < this.selectedTag.questions.length; i++) {
+    for (let i = 0; i < this.selectedTag.questions.length; i++) {
       if(this.selectedTag.questions[i].min != min || this.selectedTag.questions[i].max != max){
         this.scaleCorrect = false;
       }

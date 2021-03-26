@@ -78,11 +78,11 @@ export class MultipleChoiceChartComponent implements OnInit, OnChanges {
     this.chartLabels = [];
     this.chartData = [];
 
-    var lowest = Number.POSITIVE_INFINITY;
-    var highest = Number.NEGATIVE_INFINITY;
-    var tmp;
+    let lowest = Number.POSITIVE_INFINITY;
+    let highest = Number.NEGATIVE_INFINITY;
+    let tmp;
 
-    for (var i = 0; i < this.selectedQuestion.answers.length; i++) {
+    for (let i = 0; i < this.selectedQuestion.answers.length; i++) {
 
       tmp = this.selectedQuestion.answers[i].value;
       if (tmp < lowest) lowest = tmp;
@@ -92,7 +92,7 @@ export class MultipleChoiceChartComponent implements OnInit, OnChanges {
         this.chartLabels.push(this.selectedQuestion.answers[i].value);
       } else {
 
-        var textToAdd = this.selectedQuestion.answers[i].text;
+        let textToAdd = this.selectedQuestion.answers[i].text;
         if(this.selectedQuestion.answers[i].text.length>30){
           textToAdd=this.selectedQuestion.answers[i].text.substring(0, 29)+"...";
         }

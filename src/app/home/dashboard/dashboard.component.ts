@@ -89,9 +89,9 @@ export class DashboardComponent implements OnInit {
 
   filterByLanguage(filters:any){
     
-    var langIndex = filters.languages.findIndex(x => x.checked == false);
-    var m1Index = filters.meta1.findIndex(x => x.checked == false);
-    var m2Index = filters.meta2.findIndex(x => x.checked == false);
+    let langIndex = filters.languages.findIndex(x => x.checked == false);
+    let m1Index = filters.meta1.findIndex(x => x.checked == false);
+    let m2Index = filters.meta2.findIndex(x => x.checked == false);
     if(langIndex!=-1 || m1Index!=-2 || m2Index!=-1 || !filters.unfinished){
       //filters applied
       this.displayClearFilterButton = true;
@@ -100,7 +100,6 @@ export class DashboardComponent implements OnInit {
     }
     this.parseData(filters);
   }
-
 
   clearLanguageFilter(){
     this.displayClearFilterButton = false;

@@ -50,7 +50,7 @@ import { CheckboxChartComponent } from './home/dashboard/charts/checkbox-chart/c
 import { ToastrModule } from 'ngx-toastr';
 import { SideSliderComponent } from './other-components/side-slider/side-slider.component';
 import { NavbarComponent } from './home/navbar/navbar.component';
-import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
+import { LoadingSpinnerComponent } from './other-components/loading-spinner/loading-spinner.component';
 
 @NgModule({
   declarations: [

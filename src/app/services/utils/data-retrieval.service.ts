@@ -106,7 +106,7 @@ export class DataRetrievalService {
     this.sessionsTemp = [];
     for (let i = 1; i < csvRecordsArray.length; i++) {
 
-      var currentRecord = (<string>csvRecordsArray[i]).split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
+      let currentRecord = (<string>csvRecordsArray[i]).split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
       if (currentRecord.length == header.length) {
         let csvRecord: any = {};
         csvRecord.user = currentRecord[header.findIndex(x => x == "user")].trim().replace(/['"]+/g, '');
@@ -139,7 +139,7 @@ export class DataRetrievalService {
   }
 
   parseMetadata(meta1, meta2){
-    var m1Index = this.data.meta1.findIndex(x => x.meta == meta1);
+    let m1Index = this.data.meta1.findIndex(x => x.meta == meta1);
     if(meta1!=undefined && meta1!="" && m1Index==-1) { 
       this.data.meta1.push({
         meta: meta1,
@@ -150,7 +150,7 @@ export class DataRetrievalService {
       this.data.meta1[m1Index].count++;
     }
 
-    var m2Index = this.data.meta2.findIndex(x => x.meta == meta2);
+    let m2Index = this.data.meta2.findIndex(x => x.meta == meta2);
     if(meta2!=undefined && meta2!="" && m2Index==-1) {
       this.data.meta2.push({
         meta: meta2,

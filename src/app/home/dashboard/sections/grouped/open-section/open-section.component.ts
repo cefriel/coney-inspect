@@ -26,7 +26,7 @@ export class OpenSectionComponent implements OnInit, OnChanges {
 
   updateChart() {
     this.totalAnswers = 0;
-    for (var i = 0; i < this.selectedQuestion.answers.length; i++) {
+    for (let i = 0; i < this.selectedQuestion.answers.length; i++) {
       this.totalAnswers += 1;
     }
   }

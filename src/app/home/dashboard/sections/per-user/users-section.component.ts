@@ -66,9 +66,9 @@ export class UsersSectionComponent implements OnInit, OnChanges {
   }
 
   formatTime(){
-    var tempTime = this.selectedUser.duration;
-    var returnTime = "";
-    var timeArr = tempTime.split(":");
+    let tempTime = this.selectedUser.duration;
+    let returnTime = "";
+    let timeArr = tempTime.split(":");
     console.log(timeArr);
     if(timeArr[0].length<2){
       returnTime = "0"+timeArr[0];

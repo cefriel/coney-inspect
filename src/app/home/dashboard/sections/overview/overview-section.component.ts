@@ -74,9 +74,9 @@ export class IntroSectionComponent implements OnInit, OnChanges {
 
 
   parseData() {
-    var durationData = this.introService.parseDuration(this.inputAnswers.durations);
-    var timesData = this.introService.parseTimes(this.inputAnswers.times);
-    var datesData = this.introService.parseDates(this.inputAnswers.dates);
+    let durationData = this.introService.parseDuration(this.inputAnswers.durations);
+    let timesData = this.introService.parseTimes(this.inputAnswers.times);
+    let datesData = this.introService.parseDates(this.inputAnswers.dates);
 
 
     //duration chart

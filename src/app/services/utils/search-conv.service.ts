@@ -35,9 +35,9 @@ export class SearchConvService {
         let success = false;
         this.backend.getRequest(endpoint).subscribe(json => {
 
-            var tmpConv = JSON.parse(json);
+            let tmpConv = JSON.parse(json);
 
-            for (var z = 0; z < tmpConv.length; z++) {
+            for (let z = 0; z < tmpConv.length; z++) {
                 if (tmpConv[z].status != "saved") { //just another check, should be ok in the API
                     conversations.push(tmpConv[z]);
                 }
@@ -62,8 +62,8 @@ export class SearchConvService {
 
     getProjects(conversations) {
         let searchProjects = ["all"];
-        for (var i = 0; i < conversations.length; i++) {
-            var pr = conversations[i].projectName;
+        for (let i = 0; i < conversations.length; i++) {
+            let pr = conversations[i].projectName;
             if (!searchProjects.includes(pr)) {
                 searchProjects.push(pr);
             }

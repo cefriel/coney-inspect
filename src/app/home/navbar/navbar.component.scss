@@ -13,3 +13,31 @@
   box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 20%), 0 1px 5px 0 rgb(0 0 0 / 12%);
   z-index: 9;
 }
+
+#projectName{
+  color: gray;
+}
+
+.statusVBar{
+  width: 4px;
+  border-radius: 4px;
+  color:transparent;
+  display: none;
+  margin-left: 10px;
+  margin-right: 10px;
+
+  &.published{
+    background-color: #4caf50;
+    display: block;
+  }
+  
+  &.saved{
+    background-color: #6c757d;
+    display: block;
+  }
+
+  &.unpublished{
+    background-color: #03a9f4; 
+    display: block;
+  }
+}

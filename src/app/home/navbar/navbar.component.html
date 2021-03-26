@@ -1,6 +1,16 @@
 <mat-toolbar id="navbar">
     <img class="nav-logo" (click)="navigateToHome()" src="./assets/icons/ic_inspect.png">
+    
+    <span id="projectName" class="hideOnMobile">{{projectName}}</span>
+
+    <div
+    [class.published]="status == 'published'"
+    [class.unpublished]="status == 'unpublished'"
+    [class.saved]="status == 'saved'"
+    class="statusVBar hideOnMobile">.</div>
+  
     <span>{{title}}</span>
+    
     <span class="spacer"></span>
   
     <button mat-icon-button [matMenuTriggerFor]="menu" class="nav-icon" aria-label="Options" title="Options">

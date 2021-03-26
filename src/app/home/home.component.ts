@@ -19,6 +19,8 @@ import { BackendService } from '../services/backend.service';
 })
 export class HomeComponent implements OnInit {
   title = 'Coney Inspect';
+  status = '';
+  projectName = '';
 
   loading = false;
   user = undefined;
@@ -108,8 +110,8 @@ export class HomeComponent implements OnInit {
   }
 
   selectedConversation(event) {
-    var oldConv = sessionStorage.getItem("conv");
-
+    let oldConv = sessionStorage.getItem("conv");
+    console.log(event);
     if(event==undefined && oldConv == null){
       this.resetData();
       this.loading = false;
@@ -125,6 +127,8 @@ export class HomeComponent implements OnInit {
     this.conversationAccessLevel = event.accessLevel;
     
     this.title = event.conversationTitle;
+    this.projectName = event.projectName;
+    this.status = event.status;
     this.getData(event.conversationId,event.conversationTitle);
 
   }
@@ -203,10 +207,10 @@ export class HomeComponent implements OnInit {
     }
 
     this.loading = true;
-    var strt = "";
-    var end = ".csv";
-    var reqType = "text/csv"
-    var endpoint = "/data/";
+    let strt = "";
+    let end = ".csv";
+    let reqType = "text/csv"
+    let endpoint = "/data/";
 
     
     endpoint += "getAnswersOfConversation";

@@ -53,14 +53,14 @@ export class LanguageSectionComponent implements OnInit, OnChanges {
     }
 
     if(this.filtersCleared == !this.pastFiltersCleared){
-      for(var i = 0; i<this.languages.length; i++){
+      for(let i = 0; i<this.languages.length; i++){
         this.languages[i].checked = true;
         this.showUnfinishedSelected = true;
       }
-      for(var j = 0; j<this.metadata.meta1.length; j++){
+      for(let j = 0; j<this.metadata.meta1.length; j++){
         this.metadata.meta1[j].checked = true;
       }
-      for(var z = 0; z<this.metadata.meta2.length; z++){
+      for(let z = 0; z<this.metadata.meta2.length; z++){
         this.metadata.meta2[z].checked = true;
       }
       this.pastFiltersCleared = this.filtersCleared;
@@ -83,22 +83,22 @@ export class LanguageSectionComponent implements OnInit, OnChanges {
       this.closeFrame();
       return;
     }
-    var button = document.getElementById("coney-open-f");
-    var panel = document.getElementById("side-panel");
+    let button = document.getElementById("coney-open-f");
+    let panel = document.getElementById("side-panel");
     panel.style.right = "400px";
     
     this.opened = true;
     
-    //var filtersTab = document.getElementById("coney-filters");
+    //let filtersTab = document.getElementById("coney-filters");
     
 }
 
 closeFrame() {
-  //var filtersTab = document.getElementById("coney-filters");
+  //let filtersTab = document.getElementById("coney-filters");
   //filtersTab.style.display = "none";
 
-  var button = document.getElementById("coney-open-f");
-  var panel = document.getElementById("side-panel");
+  let button = document.getElementById("coney-open-f");
+  let panel = document.getElementById("side-panel");
   panel.style.right = "0px";
   this.opened = false;
   }

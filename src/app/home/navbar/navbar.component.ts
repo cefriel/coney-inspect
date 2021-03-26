@@ -8,6 +8,8 @@ import { environment } from 'src/environments/environment';
 })
 export class NavbarComponent implements OnInit {
   @Input() title: string = "Coney Inspect";
+  @Input() status: string = "";
+  @Input() projectName: string = "";
   @Input() conversationAccessLevel: any = "3";
   
   enterprise: any;
@@ -31,7 +33,7 @@ export class NavbarComponent implements OnInit {
         sessionStorage.removeItem("title");
       }
 
-      var url = environment.baseUrl + "/home";
+      let url = environment.baseUrl + "/home";
       window.location.href = url;
 
     } else{

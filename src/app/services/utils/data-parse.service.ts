@@ -56,12 +56,12 @@ export class DataParseService {
     data.sort(function (a, b) { return a.order - b.order });
 
 
-    for (var i = 0; i < data.length; i++) {
+    for (let i = 0; i < data.length; i++) {
      let skip = false;
 
       //language filter
       if (filter != undefined && filter.languages != undefined) {
-        var langIndex = filter.languages.findIndex(x => x.tag == data[i].language);
+        let langIndex = filter.languages.findIndex(x => x.tag == data[i].language);
         if (langIndex != -1 && !filter.languages[langIndex].checked) {
           //continue;
           skip = true;
@@ -70,8 +70,8 @@ export class DataParseService {
 
       //metadata
       if (filter != undefined && (filter.meta1 != undefined || filter.meta2 != undefined)) {
-        var meta1Index = filter.meta1.findIndex(x => (x.meta == data[i].meta1 || x.meta == data[i].meta2));
-        var meta2Index = filter.meta2.findIndex(x => (x.meta == data[i].meta2 || x.meta == data[i].meta2));
+        let meta1Index = filter.meta1.findIndex(x => (x.meta == data[i].meta1 || x.meta == data[i].meta2));
+        let meta2Index = filter.meta2.findIndex(x => (x.meta == data[i].meta2 || x.meta == data[i].meta2));
 
         if ((meta1Index != -1 && !filter.meta1[meta1Index].checked) 
          || (meta2Index != -1 && !filter.meta2[meta2Index].checked)) {
@@ -103,7 +103,7 @@ export class DataParseService {
       if (data[i].tag != "") {
 
         //check the scale 
-        var valuesIndex = data.findIndex(x => x.value != data[i].value && x.questionId == data[i].questionId);
+        let valuesIndex = data.findIndex(x => x.value != data[i].value && x.questionId == data[i].questionId);
         if(valuesIndex != -1 || data[i].value != 0){
           this.manageTagsQuestionData(data[i], skip);
         }
@@ -144,16 +144,16 @@ export class DataParseService {
   //parse intro section
   manageGenericData(data: any) {
     
-    var indexLanguage = this.genericData.languages.findIndex(obj => (obj.tag == data.language));
+    let indexLanguage = this.genericData.languages.findIndex(obj => (obj.tag == data.language));
     if (indexLanguage == -1) {
-      var langTmp: any = this.getLanguageFromTag(data.language);
+      let langTmp: any = this.getLanguageFromTag(data.language);
       langTmp.number = 1;
       langTmp.checked = true;
       this.genericData.languages.push(langTmp);
     }
 
 
-    var indexSession = this.genericData.userSessionPairs.findIndex(obj => (obj.session == data.session));
+    let indexSession = this.genericData.userSessionPairs.findIndex(obj => (obj.session == data.session));
 
     if (indexSession == -1) {
       //session not yet added
@@ -162,12 +162,12 @@ export class DataParseService {
         this.genericData.languages[indexLanguage].number += 1;
       }
 
-      var indexUser = this.genericData.userSessionPairs.findIndex(obj => (obj.user == data.user));
+      let indexUser = this.genericData.userSessionPairs.findIndex(obj => (obj.user == data.user));
       if (indexUser == -1) {
         this.genericData.totUsers++;
       }
 
-      var completed = (data.totalDuration != "unfinished");
+      let completed = (data.totalDuration != "unfinished");
       if (!completed) { this.genericData.totUnfinished++; }
 
       this.genericData.totSessions++;
@@ -181,7 +181,7 @@ export class DataParseService {
       this.genericData.times.push(data.time);
       this.genericData.durations.push(data.totalDuration);
 
-      var splitData = data.date.split("-");
+      let splitData = data.date.split("-");
 
       this.genericData.dates.push(splitData[2] + "-" + splitData[1] + "-" + splitData[0]);
     }
@@ -190,16 +190,16 @@ export class DataParseService {
   //parse multiple choice questions
   manageClosedQuestionData(data: any, skip: boolean) {
     //Question part
-    var indexQuestion = this.closedQuestionsData.findIndex(obj => (obj.id == data.questionId));
-    var indexOrder = this.orderedQuestions.findIndex(x => x.neo4jId == data.questionId);
+    let indexQuestion = this.closedQuestionsData.findIndex(obj => (obj.id == data.questionId));
+    let indexOrder = this.orderedQuestions.findIndex(x => x.neo4jId == data.questionId);
     
-    var depth = 999;
+    let depth = 999;
     if(indexOrder!=-1){
       depth = this.orderedQuestions[indexOrder].depth;
     }
     
     if (indexQuestion == -1) {
-      var singleClosedQuestion = {
+      let singleClosedQuestion = {
         id: data.questionId,
         type: data.questionType,
         text: data.question,
@@ -212,15 +212,15 @@ export class DataParseService {
     }
 
     //ANSWER part
-    var answered = 0;
+    let answered = 0;
     if (data.session != "" && !skip) { answered++; }
 
-    var indexAnswer = this.closedQuestionsData[indexQuestion].answers.findIndex(obj => (obj.order == data.order));
-    var textToDisplay = data.option;
+    let indexAnswer = this.closedQuestionsData[indexQuestion].answers.findIndex(obj => (obj.order == data.order));
+    let textToDisplay = data.option;
     if (data.text == "") { textToDisplay = data.value; }
 
     if (indexAnswer == -1) {
-      var singleAnswer = {
+      let singleAnswer = {
         text: textToDisplay,
         order: data.order,
         value: parseInt(data.value),
@@ -237,9 +237,9 @@ export class DataParseService {
   manageTagsQuestionData(data: any, skip:boolean) {
 
     //Tags part
-    var tagIndex = this.tagsQuestionsData.findIndex(x => x.tag == data.tag);
+    let tagIndex = this.tagsQuestionsData.findIndex(x => x.tag == data.tag);
     if (tagIndex == -1) {
-      var tag = {
+      let tag = {
         tag: data.tag,
         questions: [{
           question: data.question,
@@ -253,10 +253,10 @@ export class DataParseService {
       tagIndex = this.tagsQuestionsData.length - 1;
     }
 
-    var questionIndex = this.tagsQuestionsData[tagIndex].questions.findIndex(x => x.questionId == data.questionId);
+    let questionIndex = this.tagsQuestionsData[tagIndex].questions.findIndex(x => x.questionId == data.questionId);
 
     if(questionIndex == -1){
-      var question = {
+      let question = {
         question: data.question,
         questionId: data.questionId,
         max: 0,
@@ -275,14 +275,14 @@ export class DataParseService {
 
 
     //ANSWER part
-    var answered = 0;
+    let answered = 0;
     if (data.session != "" && !skip) { answered++; }
 
-    var indexAnswer = this.tagsQuestionsData[tagIndex].answers.findIndex(obj => (obj.value == data.value));
+    let indexAnswer = this.tagsQuestionsData[tagIndex].answers.findIndex(obj => (obj.value == data.value));
 
 
     if (indexAnswer == -1) {
-      var singleAnswer = {
+      let singleAnswer = {
         value: parseInt(data.value),
         totalAnswers: answered
       }
@@ -297,11 +297,11 @@ export class DataParseService {
   manageCheckboxQuestionData(data: any, skip: boolean) {
 
     //Question part
-    var indexQuestion = this.checkboxQuestionsData.findIndex(obj => (obj.id == data.questionId));
-    var indexOrder = this.orderedQuestions.findIndex(x => x.neo4jId == data.questionId);
-    var depth = this.orderedQuestions[indexOrder].depth;
+    let indexQuestion = this.checkboxQuestionsData.findIndex(obj => (obj.id == data.questionId));
+    let indexOrder = this.orderedQuestions.findIndex(x => x.neo4jId == data.questionId);
+    let depth = this.orderedQuestions[indexOrder].depth;
     if (indexQuestion == -1) {
-      var singleCheckboxQuestion = {
+      let singleCheckboxQuestion = {
         id: data.questionId,
         type: data.questionType,
         text: data.question,
@@ -309,26 +309,27 @@ export class DataParseService {
         sessions: [data.session],
         depth: depth,
         answers: [],
+        freeAnswerLabel: "",
         freeAnswers: []
       }
       this.checkboxQuestionsData.push(singleCheckboxQuestion);
       indexQuestion = this.checkboxQuestionsData.length - 1;
     } else {
       //add user if the answer wasn't previoutly recorded
-      var indexUser = this.checkboxQuestionsData[indexQuestion].sessions.findIndex(obj => (obj == data.session));
+      let indexUser = this.checkboxQuestionsData[indexQuestion].sessions.findIndex(obj => (obj == data.session));
       if (indexUser == -1) {
         this.checkboxQuestionsData[indexQuestion].sessions.push(data.session);
       }
     }
 
     //ANSWER part
-    var answered = 0;
+    let answered = 0;
     if (data.session != "" && !skip) { answered++; }
-    var indexAnswer = this.checkboxQuestionsData[indexQuestion].answers.findIndex(obj => (obj.text == data.option));
+    let indexAnswer = this.checkboxQuestionsData[indexQuestion].answers.findIndex(obj => (obj.text == data.option));
 
 
     if (indexAnswer == -1) {
-      var singleAnswer = {
+      let singleAnswer = {
         text: data.option,
         value: data.value,
         totalAnswers: answered
@@ -341,6 +342,7 @@ export class DataParseService {
 
     //add open answer if any
     if (data.freeAnswer != undefined && data.freeAnswer != "") {
+      this.checkboxQuestionsData[indexQuestion].freeAnswerLabel = data.option;
       this.checkboxQuestionsData[indexQuestion].freeAnswers.push(data.freeAnswer);
     }
 
@@ -352,16 +354,16 @@ export class DataParseService {
     }
 
     //Question part
-    var indexQuestion = this.openQuestionsData.findIndex(obj => (obj.id == data.questionId));
-    var indexOrder = this.orderedQuestions.findIndex(x => x.neo4jId == data.questionId);
-    var depth = 999;
+    let indexQuestion = this.openQuestionsData.findIndex(obj => (obj.id == data.questionId));
+    let indexOrder = this.orderedQuestions.findIndex(x => x.neo4jId == data.questionId);
+    let depth = 999;
     if(indexOrder!=-1){
       depth = this.orderedQuestions[indexOrder].depth;
     }
     
     
     if (indexQuestion == -1) {
-      var singleOpenQuestion = {
+      let singleOpenQuestion = {
         id: data.questionId,
         type: data.questionType,
         text: data.question,
@@ -376,7 +378,7 @@ export class DataParseService {
     if(skip){return;}
 
     //ANSWER part
-    var openAnswer = {
+    let openAnswer = {
       text: data.freeAnswer,
       language: this.getLanguageFromTag(data.language).lang
     }
@@ -386,9 +388,9 @@ export class DataParseService {
 
   //for the users view
   manageUsersData(data) {
-    var indexUser = this.usersData.findIndex(obj => (obj.session == data.session));
+    let indexUser = this.usersData.findIndex(obj => (obj.session == data.session));
     if (indexUser == -1) {
-      var singleUser = {
+      let singleUser = {
         user: data.user,
         session: data.session,
         meta1: data.meta1,
@@ -403,7 +405,7 @@ export class DataParseService {
     }
 
     //check the answer
-    var textToDisplay = data.freeAnswer;
+    let textToDisplay = data.freeAnswer;
     if (textToDisplay == "") {
       textToDisplay = data.option;
     }
@@ -411,11 +413,11 @@ export class DataParseService {
       textToDisplay = data.value;
     }
 
-    var indexAnswer = this.usersData[indexUser].answers.findIndex(obj => (obj.questionId == data.questionId));
+    let indexAnswer = this.usersData[indexUser].answers.findIndex(obj => (obj.questionId == data.questionId));
     if (data.questionType == 'checkbox' && indexAnswer != -1) {
       this.usersData[indexUser].answers[indexAnswer].text += ",," + textToDisplay;
     } else {
-      var userAnswer = {
+      let userAnswer = {
         questionId: data.questionId,
         question: data.question,
         text: textToDisplay,
@@ -443,7 +445,7 @@ export class DataParseService {
     { lang: "Русский", tag: "ru" }, { lang: "Scottish", tag: "gd" }, { lang: "Slovenčina", tag: "sk" }, { lang: "Slovenščina", tag: "sl" },
     { lang: "Српски", tag: "sr" }, { lang: "Español", tag: "es" }, { lang: "Svenska", tag: "sv" }, { lang: "Türkçe", tag: "tr" }, { lang: "Українська", tag: "uk" }];
 
-    var index = languages.findIndex(x => x.tag == tag);
+    let index = languages.findIndex(x => x.tag == tag);
     return languages[index];
   }
 }

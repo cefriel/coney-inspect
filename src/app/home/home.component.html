@@ -1,7 +1,10 @@
 <div class="full" style="    background: url(./assets/other/pattern-coney-light.png); overflow-y: scroll;">
 
     <!--navbar-->
-    <app-navbar [title]="title" [conversationAccessLevel]="conversationAccessLevel"></app-navbar>
+    <app-navbar [title]="title" 
+    [status]="status" 
+    [projectName]="projectName" 
+    [conversationAccessLevel]="conversationAccessLevel"></app-navbar>
 
     <app-dashboard
     [rawAnswers]="rawAnswers" 

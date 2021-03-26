@@ -51,16 +51,16 @@ export class CheckboxChartComponent implements OnInit, OnChanges {
   ngOnChanges(): void {
     this.totalAnswers=0;
     this.updateChart();
-    
+    console.log(this.selectedQuestion)    
   }
 
   updateChart() {
     this.totalAnswers = 0;
     this.chartLabels = [];
     this.chartData = [];
-    for (var i = 0; i < this.selectedQuestion.answers.length; i++) {
+    for (let i = 0; i < this.selectedQuestion.answers.length; i++) {
 
-      var textToAdd = this.selectedQuestion.answers[i].text;
+      let textToAdd = this.selectedQuestion.answers[i].text;
       if(this.selectedQuestion.answers[i].text.length>30){
         textToAdd=this.selectedQuestion.answers[i].text.substring(0, 29)+"...";
       }

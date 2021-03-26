@@ -3,7 +3,7 @@
 @import url("styles-coney-theme.css");
 */
 @import url("./bootstrap.min.css");
-@import url("./styles-rules.css");
+@import url("./styles-rules.scss");
 
 html{
   scroll-behavior: smooth;
@@ -59,17 +59,21 @@ body {
   top: -5px;
   right: 1rem;
   position: absolute;
-  border: 1px solid gray;
+  border-radius: 4px;
+  transition: max-height 0.25s ease;
 }
 
 #filters-cont{
   overflow: hidden;
   margin: 0px; 
   width: 100%;
-  height: 0;
+  height: auto;
+  max-height: 0;
+  transition: max-height 0.4s ease-out;
 
   &.open {
-      height: auto!important;
+      max-height: 100vh!important;
+      transition: max-height 0.4s ease-in;
   }
 }
 
@@ -107,6 +111,7 @@ body {
   max-height: 15rem;
   overflow-y: auto;
   margin-top: 0;
+  padding-left: 3rem;
 }
 
 /*FAB*/
@@ -137,14 +142,14 @@ body {
 .custom-chip {
   display: inline-flex;
   padding: 5px 12px;
-  border-radius: 3rem;
+  border-radius: 4px;
   align-items: center;
   cursor: default;
   margin: 0px 5px;
   min-height: 2.5rem;
   height: 1px;
-  background-color: #e0e0e0;
-  color: rgba(0, 0, 0, .87);
+  background-color: #e0e0e0b8;
+  color: rgba(0, 0, 0, 0.87);
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
@@ -275,6 +280,10 @@ colors
 
   .borderless-mob{
       border:none!important;
+  }
+
+  .hideOnMobile{
+    display: none;
   }
 }
 
