@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { GenericDataItem } from 'src/app/model/dataParseModel';
 
 
 @Injectable()
@@ -6,17 +7,7 @@ export class DataParseService {
 
 
   //data for the generic info
-  genericData = {
-    totUsers: 0,
-    totSessions: 0,
-    totUnfinished: 0,
-    userSessionPairs: [],
-    times: [],
-    dates: [],
-    durations: [],
-    languages: [],
-    metadata: []
-  }
+  genericData : GenericDataItem;
 
   orderedQuestions = [];
   closedQuestionsData = [];
@@ -33,17 +24,7 @@ export class DataParseService {
 
   initialDataParse(data: [any], questions:[any], filter) {
     this.orderedQuestions = questions;
-    this.genericData = {
-      totUsers: 0,
-      totSessions: 0,
-      totUnfinished: 0,
-      userSessionPairs: [],
-      times: [],
-      dates: [],
-      durations: [],
-      languages: [],
-      metadata: [],
-    }
+    this.genericData = new GenericDataItem;
 
     this.closedQuestionsData = [];
     this.checkboxQuestionsData = [];

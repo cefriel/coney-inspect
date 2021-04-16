@@ -13,7 +13,6 @@ export class NavbarComponent implements OnInit {
   @Input() conversationAccessLevel: any = "3";
   
   enterprise: any;
-  listener;
 
   constructor() {}
 
