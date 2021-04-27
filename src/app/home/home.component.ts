@@ -61,6 +61,7 @@ export class HomeComponent implements OnInit {
 
       sessionStorage.removeItem("conv");
       sessionStorage.removeItem("title");
+      sessionStorage.removeItem("project");
 
       this.title = "Coney Inspect";
 
@@ -70,6 +71,7 @@ export class HomeComponent implements OnInit {
 
       //I have session data
       this.title = sessionStorage.getItem("title");
+      this.projectName = sessionStorage.getItem("project");
       this.getData(sessionStorage.getItem("conv"), sessionStorage.getItem("title"));
 
     }
@@ -111,7 +113,6 @@ export class HomeComponent implements OnInit {
 
   selectedConversation(event) {
     let oldConv = sessionStorage.getItem("conv");
-    console.log(event);
     if(event==undefined && oldConv == null){
       this.resetData();
       this.loading = false;
@@ -123,6 +124,7 @@ export class HomeComponent implements OnInit {
     this.loading = true;
     sessionStorage.setItem("conv", event.conversationId);
     sessionStorage.setItem("title", event.conversationTitle);
+    sessionStorage.setItem("project", event.projectName);
 
     this.conversationAccessLevel = event.accessLevel;
     
